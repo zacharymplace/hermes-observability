@@ -5,7 +5,8 @@
   "type": "commonjs",
   "scripts": {
     "trace:smoke": "node scripts/trace-smoke.js",
-    "check": "npm run trace:smoke"
+    "check": "npm run standards:check && npm run trace:smoke",
+    "standards:check": "node scripts/check-standards.js"
   },
   "dependencies": {
     "langfuse": "latest"

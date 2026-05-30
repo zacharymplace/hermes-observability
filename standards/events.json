@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0",
+  "events": [
+    {
+      "name": "command-result",
+      "requiredMetadata": ["repo", "branch", "commit", "command", "status", "duration_ms"]
+    },
+    {
+      "name": "review-summary",
+      "requiredMetadata": ["repo", "branch", "commit", "status", "passed", "failed", "total"]
+    },
+    {
+      "name": "release-lineage",
+      "requiredMetadata": ["repo", "branch", "commit", "release_candidate", "governance_status", "review_generation"]
+    },
+    {
+      "name": "final-disposition",
+      "requiredMetadata": ["repo", "branch", "commit", "recommendation", "reason_codes", "readiness", "risk", "confidence"]
+    }
+  ]
+}

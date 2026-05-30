@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0",
+  "scores": [
+    {
+      "name": "readiness",
+      "range": [0, 1],
+      "meaning": "Share of required review checks passing."
+    },
+    {
+      "name": "risk",
+      "range": [0, 1],
+      "meaning": "Share of required review checks failing."
+    },
+    {
+      "name": "confidence",
+      "range": [0, 1],
+      "meaning": "Derived readiness adjusted for risk."
+    }
+  ]
+}

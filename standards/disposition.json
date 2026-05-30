@@ -1,0 +1,24 @@
+{
+  "version": "0.1.0",
+  "recommendations": {
+    "promote": {
+      "readinessMin": 0.9,
+      "riskMax": 0.1
+    },
+    "watch": {
+      "readinessMin": 0.75,
+      "riskMax": 0.25
+    },
+    "hold": {
+      "readinessMin": 0,
+      "riskMax": 1
+    }
+  },
+  "reasonCodes": [
+    "all_checks_passed",
+    "one_or_more_checks_failed",
+    "release_check_passed",
+    "repo_check_passed",
+    "ci_summary_available"
+  ]
+}

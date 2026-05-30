@@ -1,30 +1,33 @@
 # Hermes Observability
 
-Local observability layer for Hermes agent runs, repo reviews, release checks, prompt experiments, and evaluation traces.
+Reusable observability standards and helpers for Hermes-aligned repos.
 
-## Local Langfuse
+## Current Standard
 
-Langfuse runs at:
+Events:
 
-```text
-http://localhost:3000
-```
+- command-result
+- review-summary
+- release-lineage
+- final-disposition
 
-Expected env file:
+Scores:
 
-```txt
-~/.config/hermes/langfuse.env
-```
+- readiness
+- risk
+- confidence
 
-## Smoke Test
+## Local Usage
 
 ```bash
 source ~/.config/hermes/langfuse.env
 npm run trace:smoke
 ```
 
-Expected Langfuse trace:
+## Instrumentation
+
+See:
 
 ```txt
-hermes-observability-smoke
+docs/instrumentation-guide.md
 ```

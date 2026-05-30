@@ -1,0 +1,13 @@
+{
+  "name": "hermes-observability",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "trace:smoke": "node scripts/trace-smoke.js",
+    "check": "npm run trace:smoke"
+  },
+  "dependencies": {
+    "langfuse": "latest"
+  }
+}

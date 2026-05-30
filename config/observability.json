@@ -1,0 +1,7 @@
+{
+  "system": "Hermes",
+  "repo": "hermes-observability",
+  "defaultProject": "hermes-dev",
+  "tracePrefix": "hermes-observability",
+  "enabled": true
+}

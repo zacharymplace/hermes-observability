@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Hermes observability validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Standards check
+        run: npm run standards:check
+
+      - name: Smoke trace shape
+        env:
+          LANGFUSE_PUBLIC_KEY: test-public-key
+          LANGFUSE_SECRET_KEY: test-secret-key
+          LANGFUSE_HOST: http://localhost:3000
+        run: npm run trace:smoke

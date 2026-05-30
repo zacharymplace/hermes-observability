@@ -5,10 +5,11 @@
   "type": "commonjs",
   "scripts": {
     "trace:smoke": "node scripts/trace-smoke.js",
-    "check": "npm run standards:check && npm run trace:smoke",
+    "check": "npm run standards:check && npm run standards:shape && npm run trace:smoke",
     "standards:check": "node scripts/check-standards.js",
     "ci:summary": "bash scripts/github-ci-summary.sh",
-    "hermes:observe": "npm run check && npm run trace:smoke && npm run ci:summary"
+    "hermes:observe": "npm run check && npm run trace:smoke && npm run ci:summary",
+    "standards:shape": "node scripts/validate-standards-shape.js"
   },
   "dependencies": {
     "langfuse": "latest"

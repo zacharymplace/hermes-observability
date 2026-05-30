@@ -1,33 +1,35 @@
 # Hermes Observability
 
-Reusable observability standards and helpers for Hermes-aligned repos.
+![CI](https://github.com/zacharymplace/hermes-observability/actions/workflows/ci.yml/badge.svg)
 
-## Current Standard
+Shared observability standard for Hermes-aligned repos.
 
-Events:
+## Local Commands
+
+```bash
+npm run standards:check
+npm run check
+npm run trace:smoke
+npm run hermes:observe
+npm run ci:summary
+```
+
+## Standard Events
 
 - command-result
 - review-summary
 - release-lineage
 - final-disposition
 
-Scores:
+## Standard Scores
 
 - readiness
 - risk
 - confidence
 
-## Local Usage
+## Local Langfuse
 
 ```bash
 source ~/.config/hermes/langfuse.env
-npm run trace:smoke
-```
-
-## Instrumentation
-
-See:
-
-```txt
-docs/instrumentation-guide.md
+npm run hermes:observe
 ```

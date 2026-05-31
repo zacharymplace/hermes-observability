@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T04:48:47.684Z",
+  "generatedAt": "2026-05-31T04:54:37.023Z",
   "sourceStandardPath": "/Users/zplace/dev/hermes-observability/dist/hermes-observability-standard.json",
   "sourceStandardVersion": "0.1.0",
   "summary": {
@@ -35,7 +35,7 @@
       "name": "ops-clarity-sprint",
       "path": "/Users/zplace/dev/ops-clarity-sprint",
       "branch": "main",
-      "commit": "9346d9f",
+      "commit": "e336dc9",
       "health": "pass",
       "failedChecks": 0,
       "localStandardExists": true,
@@ -55,7 +55,7 @@
       },
       "workingTreeClean": true,
       "latestCiSuccess": true,
-      "latestCiLine": "Check #394 | completed | success | 9346d9f | Add manifest version bump negative fixture test",
+      "latestCiLine": "Check #396 | completed | success | e336dc9 | Include release summary in lifecycle check",
       "reasonCodes": [
         "all_checks_passed",
         "release_check_passed",
@@ -67,7 +67,12 @@
         "release_check_passed",
         "repo_check_passed"
       ],
-      "traceReviewPasses": true
+      "traceReviewPasses": true,
+      "latestRecommendation": "promote",
+      "readiness": 1,
+      "risk": 0,
+      "confidence": 1,
+      "reviewStatus": "pass"
     },
     {
       "name": "ufc-decision-service",
@@ -111,7 +116,12 @@
         "review_generation_passed",
         "threshold_fixtures_passed"
       ],
-      "traceReviewPasses": true
+      "traceReviewPasses": true,
+      "latestRecommendation": "promote",
+      "readiness": 1,
+      "risk": 0,
+      "confidence": 1,
+      "reviewStatus": "pass"
     },
     {
       "name": "civic-league",
@@ -155,7 +165,12 @@
         "repo_check_passed",
         "season_readiness_passed"
       ],
-      "traceReviewPasses": true
+      "traceReviewPasses": true,
+      "latestRecommendation": "promote",
+      "readiness": 1,
+      "risk": 0,
+      "confidence": 1,
+      "reviewStatus": "pass"
     },
     {
       "name": "host-aware-abundance",
@@ -199,7 +214,12 @@
         "simulation_compare_passed",
         "simulation_run_passed"
       ],
-      "traceReviewPasses": true
+      "traceReviewPasses": true,
+      "latestRecommendation": "promote",
+      "readiness": 1,
+      "risk": 0,
+      "confidence": 1,
+      "reviewStatus": "pass"
     },
     {
       "name": "mirrorwall",
@@ -238,7 +258,12 @@
         "risk_explain_available",
         "status_json_available"
       ],
-      "traceReviewPasses": false
+      "traceReviewPasses": false,
+      "latestRecommendation": "unknown",
+      "readiness": null,
+      "risk": null,
+      "confidence": null,
+      "reviewStatus": "unknown"
     },
     {
       "name": "ai-ops-console",
@@ -282,7 +307,12 @@
         "release_ready_passed",
         "repo_check_passed"
       ],
-      "traceReviewPasses": true
+      "traceReviewPasses": true,
+      "latestRecommendation": "promote",
+      "readiness": 1,
+      "risk": 0,
+      "confidence": 1,
+      "reviewStatus": "pass"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Hermes Langfuse Ecosystem Report
 
-Generated: 2026-05-31T04:48:47.684Z
+Generated: 2026-05-31T04:54:37.023Z
 Source standard version: 0.1.0
 
 ## Summary
@@ -14,14 +14,25 @@ Source standard version: 0.1.0
 
 ## Repo Health
 
-| Repo | Health | Branch | Commit | Standard | Metadata | CI | Clean |
-|---|---:|---|---|---:|---:|---:|---:|
-| ops-clarity-sprint | pass | main | 9346d9f | pass | pass | pass | pass |
-| ufc-decision-service | pass | main | 89977a5 | pass | pass | pass | pass |
-| civic-league | pass | main | bc9a546 | pass | pass | pass | pass |
-| host-aware-abundance | pass | main | 994220f | pass | pass | pass | pass |
-| mirrorwall | pass | main | b86a306 | pass | pass | pass | pass |
-| ai-ops-console | pass | main | 086c162 | pass | pass | pass | pass |
+| Repo | Health | Recommendation | Readiness | Risk | Branch | Commit | Standard | Metadata | CI | Clean |
+|---|---:|---:|---:|---:|---|---|---:|---:|---:|---:|
+| ops-clarity-sprint | pass | promote | 1 | 0 | main | e336dc9 | pass | pass | pass | pass |
+| ufc-decision-service | pass | promote | 1 | 0 | main | 89977a5 | pass | pass | pass | pass |
+| civic-league | pass | promote | 1 | 0 | main | bc9a546 | pass | pass | pass | pass |
+| host-aware-abundance | pass | promote | 1 | 0 | main | 994220f | pass | pass | pass | pass |
+| mirrorwall | pass | unknown | n/a | n/a | main | b86a306 | pass | pass | pass | pass |
+| ai-ops-console | pass | promote | 1 | 0 | main | 086c162 | pass | pass | pass | pass |
+
+## Review Outcomes
+
+| Repo | Trace Review | Recommendation | Readiness | Risk | Confidence |
+|---|---:|---:|---:|---:|---:|
+| ops-clarity-sprint | pass | promote | 1 | 0 | 1 |
+| ufc-decision-service | pass | promote | 1 | 0 | 1 |
+| civic-league | pass | promote | 1 | 0 | 1 |
+| host-aware-abundance | pass | promote | 1 | 0 | 1 |
+| mirrorwall | fail | unknown | n/a | n/a | n/a |
+| ai-ops-console | pass | promote | 1 | 0 | 1 |
 
 ## Reason Code Rollup
 
@@ -46,7 +57,7 @@ Source standard version: 0.1.0
 
 ## Latest CI
 
-- ops-clarity-sprint: Check #394 | completed | success | 9346d9f | Add manifest version bump negative fixture test
+- ops-clarity-sprint: Check #396 | completed | success | e336dc9 | Include release summary in lifecycle check
 - ufc-decision-service: Policy Regression #68 | completed | success | 89977a5 | Emit standard metadata in UFC review trace
 - civic-league: CI #793 | completed | success | bc9a546 | Emit standard metadata in Civic review trace (#146)
 - host-aware-abundance: CI #181 | completed | success | 994220f | Emit standard metadata in Host-Aware review trace

@@ -41,3 +41,16 @@ Run this after:
 `npm run check` stays repo-local and CI-safe.
 
 `npm run ecosystem:gate` depends on local sibling repo paths under `~/dev`, so it is intentionally a non-default local operator gate.
+
+## Dependency install behavior
+
+By default, ecosystem reporting does not install missing downstream dependencies. This avoids mutating sibling repos during normal report generation.
+
+If a downstream repo is missing `node_modules` and the report needs to run `trace:review`, enable install explicitly:
+
+    HERMES_ECOSYSTEM_INSTALL_DEPS=1 npm run ecosystem:dashboard
+
+When enabled, the report uses:
+
+- `npm ci` when `package-lock.json` exists
+- `npm install` otherwise

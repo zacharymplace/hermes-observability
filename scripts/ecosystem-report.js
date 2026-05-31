@@ -57,9 +57,18 @@ function ensureNodeDependencies(repoPath) {
   const pkgPath = path.join(repoPath, "package.json");
   const lockPath = path.join(repoPath, "package-lock.json");
   const modulesPath = path.join(repoPath, "node_modules");
+  const allowInstall = process.env.HERMES_ECOSYSTEM_INSTALL_DEPS === "1";
 
   if (!fs.existsSync(pkgPath)) return { ok: true, action: "no_package_json" };
   if (fs.existsSync(modulesPath)) return { ok: true, action: "already_present" };
+
+  if (!allowInstall) {
+    return {
+      ok: false,
+      action: "missing_node_modules_install_skipped",
+      output: "Missing node_modules. Set HERMES_ECOSYSTEM_INSTALL_DEPS=1 to allow ecosystem report to install downstream dependencies.",
+    };
+  }
 
   const installCommand = fs.existsSync(lockPath) ? "npm ci" : "npm install";
   const install = run(installCommand, repoPath);

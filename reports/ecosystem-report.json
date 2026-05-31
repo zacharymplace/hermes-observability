@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T05:29:10.311Z",
+  "generatedAt": "2026-05-31T05:40:57.746Z",
   "sourceStandardPath": "/Users/zplace/dev/hermes-observability/dist/hermes-observability-standard.json",
   "sourceStandardVersion": "0.1.0",
   "summary": {
@@ -41,7 +41,7 @@
       "name": "ops-clarity-sprint",
       "path": "/Users/zplace/dev/ops-clarity-sprint",
       "branch": "main",
-      "commit": "9b2576c",
+      "commit": "d657240",
       "health": "pass",
       "failedChecks": 0,
       "localStandardExists": true,
@@ -61,7 +61,7 @@
       },
       "workingTreeClean": true,
       "latestCiSuccess": true,
-      "latestCiLine": "Check #404 | completed | success | 9b2576c | Release Hermes lifecycle status JSON layer v0.1",
+      "latestCiLine": "Check #406 | completed | success | b3f0c83 | Release lifecycle status validation and add operator report",
       "reasonCodes": [
         "all_checks_passed",
         "release_check_passed",
@@ -77,7 +77,7 @@
       "traceReviewCommand": "npm run trace:review",
       "dependencyInstallAction": "already_present",
       "dependencyInstallPasses": true,
-      "traceReviewOutputTail": "> ops-clarity-sprint@1.0.0 trace:review\n> node scripts/langfuse-review-trace.js\n\n{\n  \"trace\": \"hermes-review-run\",\n  \"repo\": \"ops-clarity-sprint\",\n  \"branch\": \"main\",\n  \"commit\": \"9b2576c\",\n  \"status\": \"pass\",\n  \"passed\": 4,\n  \"failed\": 0,\n  \"total\": 4,\n  \"score\": {\n    \"readiness\": 1,\n    \"risk\": 0,\n    \"confidence\": 1,\n    \"recommendation\": \"promote\",\n    \"reason_codes\": [\n      \"all_checks_passed\",\n      \"release_check_passed\",\n      \"repo_check_passed\"\n    ]\n  }\n}",
+      "traceReviewOutputTail": "> ops-clarity-sprint@1.0.0 trace:review\n> node scripts/langfuse-review-trace.js\n\n{\n  \"trace\": \"hermes-review-run\",\n  \"repo\": \"ops-clarity-sprint\",\n  \"branch\": \"main\",\n  \"commit\": \"d657240\",\n  \"status\": \"pass\",\n  \"passed\": 4,\n  \"failed\": 0,\n  \"total\": 4,\n  \"score\": {\n    \"readiness\": 1,\n    \"risk\": 0,\n    \"confidence\": 1,\n    \"recommendation\": \"promote\",\n    \"reason_codes\": [\n      \"all_checks_passed\",\n      \"release_check_passed\",\n      \"repo_check_passed\"\n    ]\n  }\n}",
       "traceReviewParseStatus": "parsed",
       "latestRecommendation": "promote",
       "readiness": 1,

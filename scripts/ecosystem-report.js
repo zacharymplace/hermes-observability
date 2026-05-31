@@ -220,6 +220,8 @@ function inspectRepo(repo, sourceStandard) {
     possibleReasonCodes: possibleReasonCodesList,
     traceReviewPasses: traceReview.ok,
     traceReviewCommand,
+    traceReviewOutputTail: String(traceReview.output || "").slice(-4000),
+    traceReviewParseStatus: observedTraceReview ? "parsed" : "not_parsed",
     latestRecommendation: observedScore.recommendation || "unknown",
     readiness: typeof observedScore.readiness === "number" ? observedScore.readiness : null,
     risk: typeof observedScore.risk === "number" ? observedScore.risk : null,
@@ -271,6 +273,19 @@ function markdown(report) {
     lines.push(`- ${code}: ${count}`);
   }
 
+
+  lines.push("");
+  lines.push("## Trace Review Parse Diagnostics");
+  lines.push("");
+  lines.push("| Repo | Command | Command Status | Parse Status | Output Tail |");
+  lines.push("|---|---|---:|---:|---|");
+  for (const repo of report.repos) {
+    const tail = String(repo.traceReviewOutputTail || "")
+      .replace(/\n/g, "<br>")
+      .replace(/\|/g, "\\|")
+      .slice(-500);
+    lines.push(`| ${repo.name} | ${repo.traceReviewCommand || "n/a"} | ${repo.traceReviewPasses ? "pass" : "fail"} | ${repo.traceReviewParseStatus || "unknown"} | ${tail || "n/a"} |`);
+  }
   lines.push("");
   lines.push("## Latest CI");
   lines.push("");

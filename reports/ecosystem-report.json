@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T04:43:21.440Z",
+  "generatedAt": "2026-05-31T04:48:47.684Z",
   "sourceStandardPath": "/Users/zplace/dev/hermes-observability/dist/hermes-observability-standard.json",
   "sourceStandardVersion": "0.1.0",
   "summary": {
@@ -11,11 +11,10 @@
     "dirtyWorkingTrees": 0
   },
   "reasonCodeRollup": {
-    "all_checks_passed": 6,
-    "one_or_more_checks_failed": 6,
+    "all_checks_passed": 5,
     "release_check_passed": 1,
     "repo_check_passed": 3,
-    "ci_summary_available": 5,
+    "ci_summary_available": 4,
     "fixtures_passed": 1,
     "policy_readiness_passed": 1,
     "review_generation_passed": 1,
@@ -27,12 +26,6 @@
     "sensitivity_passed": 1,
     "simulation_compare_passed": 1,
     "simulation_run_passed": 1,
-    "baseline_health_json_available": 1,
-    "baseline_json_available": 1,
-    "exposure_json_available": 1,
-    "mirrorwall_validate_passed": 1,
-    "risk_explain_available": 1,
-    "status_json_available": 1,
     "classifier_eval_passed": 1,
     "lint_passed": 1,
     "release_ready_passed": 1
@@ -65,10 +58,16 @@
       "latestCiLine": "Check #394 | completed | success | 9346d9f | Add manifest version bump negative fixture test",
       "reasonCodes": [
         "all_checks_passed",
+        "release_check_passed",
+        "repo_check_passed"
+      ],
+      "possibleReasonCodes": [
+        "all_checks_passed",
         "one_or_more_checks_failed",
         "release_check_passed",
         "repo_check_passed"
-      ]
+      ],
+      "traceReviewPasses": true
     },
     {
       "name": "ufc-decision-service",
@@ -99,11 +98,20 @@
         "all_checks_passed",
         "ci_summary_available",
         "fixtures_passed",
+        "policy_readiness_passed",
+        "review_generation_passed",
+        "threshold_fixtures_passed"
+      ],
+      "possibleReasonCodes": [
+        "all_checks_passed",
+        "ci_summary_available",
+        "fixtures_passed",
         "one_or_more_checks_failed",
         "policy_readiness_passed",
         "review_generation_passed",
         "threshold_fixtures_passed"
-      ]
+      ],
+      "traceReviewPasses": true
     },
     {
       "name": "civic-league",
@@ -133,12 +141,21 @@
       "reasonCodes": [
         "all_checks_passed",
         "ci_summary_available",
+        "product_readiness_passed",
+        "release_verify_passed",
+        "repo_check_passed",
+        "season_readiness_passed"
+      ],
+      "possibleReasonCodes": [
+        "all_checks_passed",
+        "ci_summary_available",
         "one_or_more_checks_failed",
         "product_readiness_passed",
         "release_verify_passed",
         "repo_check_passed",
         "season_readiness_passed"
-      ]
+      ],
+      "traceReviewPasses": true
     },
     {
       "name": "host-aware-abundance",
@@ -169,11 +186,20 @@
         "all_checks_passed",
         "ci_summary_available",
         "doctrine_validation_passed",
+        "sensitivity_passed",
+        "simulation_compare_passed",
+        "simulation_run_passed"
+      ],
+      "possibleReasonCodes": [
+        "all_checks_passed",
+        "ci_summary_available",
+        "doctrine_validation_passed",
         "one_or_more_checks_failed",
         "sensitivity_passed",
         "simulation_compare_passed",
         "simulation_run_passed"
-      ]
+      ],
+      "traceReviewPasses": true
     },
     {
       "name": "mirrorwall",
@@ -200,7 +226,8 @@
       "workingTreeClean": true,
       "latestCiSuccess": true,
       "latestCiLine": "Mirrorwall Release Check #46 | completed | success | b86a306 | Emit standard metadata in Mirrorwall review trace",
-      "reasonCodes": [
+      "reasonCodes": [],
+      "possibleReasonCodes": [
         "all_checks_passed",
         "baseline_health_json_available",
         "baseline_json_available",
@@ -210,7 +237,8 @@
         "one_or_more_checks_failed",
         "risk_explain_available",
         "status_json_available"
-      ]
+      ],
+      "traceReviewPasses": false
     },
     {
       "name": "ai-ops-console",
@@ -242,10 +270,19 @@
         "ci_summary_available",
         "classifier_eval_passed",
         "lint_passed",
+        "release_ready_passed",
+        "repo_check_passed"
+      ],
+      "possibleReasonCodes": [
+        "all_checks_passed",
+        "ci_summary_available",
+        "classifier_eval_passed",
+        "lint_passed",
         "one_or_more_checks_failed",
         "release_ready_passed",
         "repo_check_passed"
-      ]
+      ],
+      "traceReviewPasses": true
     }
   ]
 }

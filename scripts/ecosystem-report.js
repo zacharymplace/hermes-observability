@@ -68,10 +68,24 @@ function gitValue(repoPath, command, fallback = "unknown") {
   return result.ok ? result.output : fallback;
 }
 
-function parseReasonCodes(traceText) {
-  const matches = [...traceText.matchAll(/reasonCodes\.push\("([^"]+)"\)/g)].map((match) => match[1]);
-  const directArrayMatches = [...traceText.matchAll(/"([a-z0-9_]+_passed|all_checks_passed|one_or_more_checks_failed|ci_summary_available)"/g)].map((match) => match[1]);
-  return [...new Set([...matches, ...directArrayMatches])].sort();
+function parseObservedReasonCodes(output) {
+  const jsonStart = output.indexOf("{");
+  if (jsonStart < 0) return [];
+
+  try {
+    const parsed = JSON.parse(output.slice(jsonStart));
+    return Array.isArray(parsed?.score?.reason_codes)
+      ? [...new Set(parsed.score.reason_codes)].sort()
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+function possibleReasonCodes(traceText) {
+  return [...new Set(
+    [...traceText.matchAll(/reasonCodes\.push\("([^"]+)"\)/g)].map((match) => match[1])
+  )].sort();
 }
 
 function inspectRepo(repo, sourceStandard) {
@@ -106,7 +120,12 @@ function inspectRepo(repo, sourceStandard) {
 
   const ciLine = exists ? latestCiLine(repoPath) : "";
 
-  const reasonCodes = traceText ? parseReasonCodes(traceText) : [];
+  const traceReview = scripts["trace:review"]
+    ? run("npm run trace:review", repoPath)
+    : { ok: false, output: "" };
+
+  const reasonCodes = traceReview.ok ? parseObservedReasonCodes(traceReview.output) : [];
+  const possibleReasonCodesList = traceText ? possibleReasonCodes(traceText) : [];
 
   const healthChecks = [
     exists,
@@ -142,6 +161,8 @@ function inspectRepo(repo, sourceStandard) {
     latestCiSuccess: /completed \| success/.test(ciLine),
     latestCiLine: ciLine,
     reasonCodes,
+    possibleReasonCodes: possibleReasonCodesList,
+    traceReviewPasses: traceReview.ok,
   };
 }
 

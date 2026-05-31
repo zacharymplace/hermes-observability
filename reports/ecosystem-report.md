@@ -1,6 +1,6 @@
 # Hermes Langfuse Ecosystem Report
 
-Generated: 2026-05-31T04:43:21.440Z
+Generated: 2026-05-31T04:48:47.684Z
 Source standard version: 0.1.0
 
 ## Summary
@@ -25,30 +25,23 @@ Source standard version: 0.1.0
 
 ## Reason Code Rollup
 
-- all_checks_passed: 6
-- one_or_more_checks_failed: 6
-- ci_summary_available: 5
+- all_checks_passed: 5
+- ci_summary_available: 4
 - repo_check_passed: 3
-- baseline_health_json_available: 1
-- baseline_json_available: 1
 - classifier_eval_passed: 1
 - doctrine_validation_passed: 1
-- exposure_json_available: 1
 - fixtures_passed: 1
 - lint_passed: 1
-- mirrorwall_validate_passed: 1
 - policy_readiness_passed: 1
 - product_readiness_passed: 1
 - release_check_passed: 1
 - release_ready_passed: 1
 - release_verify_passed: 1
 - review_generation_passed: 1
-- risk_explain_available: 1
 - season_readiness_passed: 1
 - sensitivity_passed: 1
 - simulation_compare_passed: 1
 - simulation_run_passed: 1
-- status_json_available: 1
 - threshold_fixtures_passed: 1
 
 ## Latest CI

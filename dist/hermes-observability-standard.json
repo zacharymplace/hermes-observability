@@ -4,7 +4,7 @@
     "events": 4,
     "scores": 3,
     "recommendations": 3,
-    "reasonCodes": 5
+    "reasonCodes": 25
   },
   "events": [
     {
@@ -100,6 +100,26 @@
     "one_or_more_checks_failed",
     "release_check_passed",
     "repo_check_passed",
-    "ci_summary_available"
+    "ci_summary_available",
+    "release_verify_passed",
+    "product_readiness_passed",
+    "season_readiness_passed",
+    "threshold_fixtures_passed",
+    "fixtures_passed",
+    "review_generation_passed",
+    "policy_readiness_passed",
+    "doctrine_validation_passed",
+    "simulation_run_passed",
+    "simulation_compare_passed",
+    "sensitivity_passed",
+    "mirrorwall_validate_passed",
+    "status_json_available",
+    "exposure_json_available",
+    "risk_explain_available",
+    "baseline_json_available",
+    "baseline_health_json_available",
+    "classifier_eval_passed",
+    "lint_passed",
+    "release_ready_passed"
   ]
 }

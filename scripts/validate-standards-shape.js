@@ -76,4 +76,31 @@ for (const [index, reasonCode] of disposition.reasonCodes.entries()) {
   reasonCodes.add(reasonCode);
 }
 
+
+assert(
+  disposition.extensionPolicy && typeof disposition.extensionPolicy === "object" && !Array.isArray(disposition.extensionPolicy),
+  "standards/disposition.json.extensionPolicy must be an object"
+);
+
+assert(
+  typeof disposition.extensionPolicy.allowRepoSpecificReasonCodes === "boolean",
+  "standards/disposition.json.extensionPolicy.allowRepoSpecificReasonCodes must be boolean"
+);
+
+assert(
+  typeof disposition.extensionPolicy.repoSpecificReasonCodePattern === "string" &&
+    disposition.extensionPolicy.repoSpecificReasonCodePattern.trim(),
+  "standards/disposition.json.extensionPolicy.repoSpecificReasonCodePattern must be a non-empty string"
+);
+
+assert(
+  Array.isArray(disposition.extensionPolicy.requiredBaseReasonCodes),
+  "standards/disposition.json.extensionPolicy.requiredBaseReasonCodes must be an array"
+);
+
+for (const [index, reasonCode] of disposition.extensionPolicy.requiredBaseReasonCodes.entries()) {
+  assert(typeof reasonCode === "string" && reasonCode.trim(), `standards/disposition.json.extensionPolicy.requiredBaseReasonCodes[${index}] must be a non-empty string`);
+  assert(reasonCodes.has(reasonCode), `standards/disposition.json.extensionPolicy.requiredBaseReasonCodes[${index}] must exist in reasonCodes: ${reasonCode}`);
+}
+
 console.log("Hermes observability standard shapes valid");

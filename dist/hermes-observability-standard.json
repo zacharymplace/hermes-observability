@@ -1,0 +1,105 @@
+{
+  "version": "0.1.0",
+  "counts": {
+    "events": 4,
+    "scores": 3,
+    "recommendations": 3,
+    "reasonCodes": 5
+  },
+  "events": [
+    {
+      "name": "command-result",
+      "requiredMetadata": [
+        "repo",
+        "branch",
+        "commit",
+        "command",
+        "status",
+        "duration_ms"
+      ]
+    },
+    {
+      "name": "review-summary",
+      "requiredMetadata": [
+        "repo",
+        "branch",
+        "commit",
+        "status",
+        "passed",
+        "failed",
+        "total"
+      ]
+    },
+    {
+      "name": "release-lineage",
+      "requiredMetadata": [
+        "repo",
+        "branch",
+        "commit",
+        "release_candidate",
+        "governance_status",
+        "review_generation"
+      ]
+    },
+    {
+      "name": "final-disposition",
+      "requiredMetadata": [
+        "repo",
+        "branch",
+        "commit",
+        "recommendation",
+        "reason_codes",
+        "readiness",
+        "risk",
+        "confidence"
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "name": "readiness",
+      "range": [
+        0,
+        1
+      ],
+      "meaning": "Share of required review checks passing."
+    },
+    {
+      "name": "risk",
+      "range": [
+        0,
+        1
+      ],
+      "meaning": "Share of required review checks failing."
+    },
+    {
+      "name": "confidence",
+      "range": [
+        0,
+        1
+      ],
+      "meaning": "Derived readiness adjusted for risk."
+    }
+  ],
+  "recommendations": {
+    "promote": {
+      "readinessMin": 0.9,
+      "riskMax": 0.1
+    },
+    "watch": {
+      "readinessMin": 0.75,
+      "riskMax": 0.25
+    },
+    "hold": {
+      "readinessMin": 0,
+      "riskMax": 1
+    }
+  },
+  "reasonCodes": [
+    "all_checks_passed",
+    "one_or_more_checks_failed",
+    "release_check_passed",
+    "repo_check_passed",
+    "ci_summary_available"
+  ]
+}

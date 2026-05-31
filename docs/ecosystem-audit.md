@@ -54,3 +54,19 @@ When enabled, the report uses:
 
 - `npm ci` when `package-lock.json` exists
 - `npm install` otherwise
+
+## Command model
+
+Use the commands this way:
+
+    npm run ecosystem:dashboard
+
+Generates the ecosystem report without enforcing the strict validation gate.
+
+    npm run ecosystem:gate
+
+Runs the strict ecosystem validation gate.
+
+    npm run ecosystem:full
+
+Runs the strict gate first, then regenerates the dashboard report.

@@ -18,7 +18,8 @@
     "ecosystem:audit": "node scripts/ecosystem-audit.js",
     "ecosystem:gate": "npm run standard:export && npm run ecosystem:audit",
     "ecosystem:report": "npm run standard:export && node scripts/ecosystem-report.js",
-    "ecosystem:dashboard": "npm run ecosystem:gate && npm run ecosystem:report"
+    "ecosystem:dashboard": "npm run ecosystem:report",
+    "ecosystem:full": "npm run ecosystem:gate && npm run ecosystem:dashboard"
   },
   "dependencies": {
     "langfuse": "latest"

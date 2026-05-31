@@ -68,6 +68,41 @@ function gitValue(repoPath, command, fallback = "unknown") {
   return result.ok ? result.output : fallback;
 }
 
+function extractBalancedJsonObject(output, start) {
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let index = start; index < output.length; index += 1) {
+    const char = output[index];
+
+    if (inString) {
+      if (escaped) {
+        escaped = false;
+      } else if (char === "\\") {
+        escaped = true;
+      } else if (char === "\"") {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (char === "\"") {
+      inString = true;
+      continue;
+    }
+
+    if (char === "{") depth += 1;
+
+    if (char === "}") {
+      depth -= 1;
+      if (depth === 0) return output.slice(start, index + 1);
+    }
+  }
+
+  return null;
+}
+
 function parseObservedTraceReview(output) {
   const starts = [];
 
@@ -76,7 +111,8 @@ function parseObservedTraceReview(output) {
   }
 
   for (const start of starts.reverse()) {
-    const candidate = output.slice(start).trim();
+    const candidate = extractBalancedJsonObject(output, start);
+    if (!candidate) continue;
 
     try {
       const parsed = JSON.parse(candidate);

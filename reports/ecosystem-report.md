@@ -1,6 +1,6 @@
 # Hermes Langfuse Ecosystem Report
 
-Generated: 2026-05-31T05:08:41.401Z
+Generated: 2026-05-31T05:14:21.753Z
 Source standard version: 0.1.0
 
 ## Summary
@@ -16,7 +16,7 @@ Source standard version: 0.1.0
 
 | Repo | Health | Recommendation | Readiness | Risk | Branch | Commit | Standard | Metadata | CI | Clean |
 |---|---:|---:|---:|---:|---|---|---:|---:|---:|---:|
-| ops-clarity-sprint | pass | promote | 1 | 0 | main | 5c4c071 | pass | pass | pass | pass |
+| ops-clarity-sprint | pass | promote | 1 | 0 | main | b3b90e8 | pass | pass | pass | pass |
 | ufc-decision-service | pass | promote | 1 | 0 | main | 89977a5 | pass | pass | pass | pass |
 | civic-league | pass | promote | 1 | 0 | main | bc9a546 | pass | pass | pass | pass |
 | host-aware-abundance | pass | promote | 1 | 0 | main | 994220f | pass | pass | pass | pass |
@@ -57,7 +57,7 @@ Source standard version: 0.1.0
 
 ## Latest CI
 
-- ops-clarity-sprint: Check #399 | completed | success | 5c4c071 | Release Hermes lifecycle release summary layer v0.1
+- ops-clarity-sprint: Check #400 | completed | success | 98b5d9a | Add compact Hermes lifecycle status command
 - ufc-decision-service: Policy Regression #68 | completed | success | 89977a5 | Emit standard metadata in UFC review trace
 - civic-league: CI #793 | completed | success | bc9a546 | Emit standard metadata in Civic review trace (#146)
 - host-aware-abundance: CI #181 | completed | success | 994220f | Emit standard metadata in Host-Aware review trace

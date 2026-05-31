@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T05:08:41.401Z",
+  "generatedAt": "2026-05-31T05:14:21.753Z",
   "sourceStandardPath": "/Users/zplace/dev/hermes-observability/dist/hermes-observability-standard.json",
   "sourceStandardVersion": "0.1.0",
   "summary": {
@@ -35,7 +35,7 @@
       "name": "ops-clarity-sprint",
       "path": "/Users/zplace/dev/ops-clarity-sprint",
       "branch": "main",
-      "commit": "5c4c071",
+      "commit": "b3b90e8",
       "health": "pass",
       "failedChecks": 0,
       "localStandardExists": true,
@@ -55,7 +55,7 @@
       },
       "workingTreeClean": true,
       "latestCiSuccess": true,
-      "latestCiLine": "Check #399 | completed | success | 5c4c071 | Release Hermes lifecycle release summary layer v0.1",
+      "latestCiLine": "Check #400 | completed | success | 98b5d9a | Add compact Hermes lifecycle status command",
       "reasonCodes": [
         "all_checks_passed",
         "release_check_passed",

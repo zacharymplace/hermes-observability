@@ -5,14 +5,15 @@
   "type": "commonjs",
   "scripts": {
     "trace:smoke": "node scripts/trace-smoke.js",
-    "check": "npm run standards:check && npm run standards:shape && npm run standard:report && npm run standard:report:json && npm run standard:export && npm run trace:smoke",
+    "check": "npm run standards:check && npm run standards:shape && npm run standard:report && npm run standard:report:json && npm run standard:export && npm run standard:verify-export && npm run trace:smoke",
     "standards:check": "node scripts/check-standards.js",
     "ci:summary": "bash scripts/github-ci-summary.sh",
     "hermes:observe": "npm run check && npm run trace:smoke && npm run ci:summary",
     "standards:shape": "node scripts/validate-standards-shape.js",
     "standard:report": "node scripts/standard-report.js",
     "standard:report:json": "node scripts/standard-report.js --json",
-    "standard:export": "node scripts/standard-export.js"
+    "standard:export": "node scripts/standard-export.js",
+    "standard:verify-export": "node scripts/verify-standard-export.js"
   },
   "dependencies": {
     "langfuse": "latest"

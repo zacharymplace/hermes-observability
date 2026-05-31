@@ -14,7 +14,8 @@
     "standard:report:json": "node scripts/standard-report.js --json",
     "standard:export": "node scripts/standard-export.js",
     "standard:verify-export": "node scripts/verify-standard-export.js",
-    "langfuse:doctor": "node scripts/langfuse-doctor.js"
+    "langfuse:doctor": "node scripts/langfuse-doctor.js",
+    "ecosystem:audit": "node scripts/ecosystem-audit.js"
   },
   "dependencies": {
     "langfuse": "latest"

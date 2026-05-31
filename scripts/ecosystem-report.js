@@ -69,14 +69,26 @@ function gitValue(repoPath, command, fallback = "unknown") {
 }
 
 function parseObservedTraceReview(output) {
-  const jsonStart = output.indexOf("{");
-  if (jsonStart < 0) return null;
+  const starts = [];
 
-  try {
-    return JSON.parse(output.slice(jsonStart));
-  } catch {
-    return null;
+  for (let index = 0; index < output.length; index += 1) {
+    if (output[index] === "{") starts.push(index);
   }
+
+  for (const start of starts.reverse()) {
+    const candidate = output.slice(start).trim();
+
+    try {
+      const parsed = JSON.parse(candidate);
+      if (parsed && typeof parsed === "object" && parsed.score) {
+        return parsed;
+      }
+    } catch {
+      // Keep walking backward until a valid JSON review payload is found.
+    }
+  }
+
+  return null;
 }
 
 function possibleReasonCodes(traceText) {

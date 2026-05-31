@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-05-31T05:02:50.530Z",
+  "generatedAt": "2026-05-31T05:08:41.401Z",
   "sourceStandardPath": "/Users/zplace/dev/hermes-observability/dist/hermes-observability-standard.json",
   "sourceStandardVersion": "0.1.0",
   "summary": {
     "total": 6,
-    "pass": 5,
-    "watch": 1,
+    "pass": 6,
+    "watch": 0,
     "hold": 0,
     "staleStandards": 0,
-    "dirtyWorkingTrees": 1
+    "dirtyWorkingTrees": 0
   },
   "reasonCodeRollup": {
     "all_checks_passed": 5,
@@ -35,9 +35,9 @@
       "name": "ops-clarity-sprint",
       "path": "/Users/zplace/dev/ops-clarity-sprint",
       "branch": "main",
-      "commit": "cc1b764",
-      "health": "watch",
-      "failedChecks": 1,
+      "commit": "5c4c071",
+      "health": "pass",
+      "failedChecks": 0,
       "localStandardExists": true,
       "localStandardMatches": true,
       "hasStandardVerify": true,
@@ -53,9 +53,9 @@
         "trace_type": true,
         "review": true
       },
-      "workingTreeClean": false,
+      "workingTreeClean": true,
       "latestCiSuccess": true,
-      "latestCiLine": "Check #397 | completed | success | d4ab690 | Emit machine-readable lifecycle release summary",
+      "latestCiLine": "Check #399 | completed | success | 5c4c071 | Release Hermes lifecycle release summary layer v0.1",
       "reasonCodes": [
         "all_checks_passed",
         "release_check_passed",

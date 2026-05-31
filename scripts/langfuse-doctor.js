@@ -56,6 +56,7 @@ async function main() {
       repo: "hermes-observability",
       environment,
       standard_version: standard.version,
+      trace_type: "doctor",
       check: "credential-doctor",
       checked_at: new Date().toISOString(),
     },

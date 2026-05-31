@@ -29,6 +29,7 @@ async function main() {
       repo: "hermes-observability",
       environment,
       standard_version: standard.version,
+      trace_type: "smoke",
       check: "trace-ingestion",
       timestamp: new Date().toISOString(),
     },

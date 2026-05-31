@@ -103,4 +103,35 @@ for (const [index, reasonCode] of disposition.extensionPolicy.requiredBaseReason
   assert(reasonCodes.has(reasonCode), `standards/disposition.json.extensionPolicy.requiredBaseReasonCodes[${index}] must exist in reasonCodes: ${reasonCode}`);
 }
 
+
+const traceMetadata = readJson("standards/trace-metadata.json");
+assertVersion(traceMetadata, "standards/trace-metadata.json");
+
+assert(
+  traceMetadata.traceMetadata && typeof traceMetadata.traceMetadata === "object" && !Array.isArray(traceMetadata.traceMetadata),
+  "standards/trace-metadata.json.traceMetadata must be an object"
+);
+
+for (const key of ["required", "optional"]) {
+  assert(Array.isArray(traceMetadata.traceMetadata[key]), `standards/trace-metadata.json.traceMetadata.${key} must be an array`);
+  assert(traceMetadata.traceMetadata[key].length > 0, `standards/trace-metadata.json.traceMetadata.${key} must not be empty`);
+
+  const seen = new Set();
+  for (const [index, field] of traceMetadata.traceMetadata[key].entries()) {
+    assert(typeof field === "string" && field.trim(), `standards/trace-metadata.json.traceMetadata.${key}[${index}] must be a non-empty string`);
+    assert(!seen.has(field), `standards/trace-metadata.json.traceMetadata.${key} duplicate: ${field}`);
+    seen.add(field);
+  }
+}
+
+assert(Array.isArray(traceMetadata.traceTypes), "standards/trace-metadata.json.traceTypes must be an array");
+assert(traceMetadata.traceTypes.length > 0, "standards/trace-metadata.json.traceTypes must not be empty");
+
+const traceTypes = new Set();
+for (const [index, traceType] of traceMetadata.traceTypes.entries()) {
+  assert(typeof traceType === "string" && traceType.trim(), `standards/trace-metadata.json.traceTypes[${index}] must be a non-empty string`);
+  assert(!traceTypes.has(traceType), `standards/trace-metadata.json.traceTypes duplicate: ${traceType}`);
+  traceTypes.add(traceType);
+}
+
 console.log("Hermes observability standard shapes valid");

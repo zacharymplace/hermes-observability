@@ -121,5 +121,34 @@
     "classifier_eval_passed",
     "lint_passed",
     "release_ready_passed"
+  ],
+  "traceMetadata": {
+    "required": [
+      "repo",
+      "branch",
+      "commit",
+      "environment",
+      "standard_version",
+      "trace_type"
+    ],
+    "optional": [
+      "readiness",
+      "risk",
+      "confidence",
+      "recommendation",
+      "reason_codes"
+    ]
+  },
+  "traceTypes": [
+    "doctor",
+    "smoke",
+    "review",
+    "release",
+    "research",
+    "decision",
+    "implementation",
+    "execution",
+    "outcome",
+    "improvement"
   ]
 }

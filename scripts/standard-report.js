@@ -7,6 +7,7 @@ function readJson(path) {
 const events = readJson("standards/events.json");
 const scores = readJson("standards/scores.json");
 const disposition = readJson("standards/disposition.json");
+const traceMetadata = readJson("standards/trace-metadata.json");
 
 const report = {
   version: events.version,
@@ -20,6 +21,8 @@ const report = {
   scores: scores.scores,
   recommendations: disposition.recommendations,
   reasonCodes: disposition.reasonCodes,
+  traceMetadata: traceMetadata.traceMetadata,
+  traceTypes: traceMetadata.traceTypes,
 };
 
 if (process.argv.includes("--json")) {
@@ -62,4 +65,18 @@ console.log("");
 console.log(`Reason Codes (${report.counts.reasonCodes})`);
 for (const reasonCode of report.reasonCodes) {
   console.log(`- ${reasonCode}`);
+}
+
+
+if (!process.argv.includes("--json")) {
+  console.log("");
+  console.log("Trace Metadata");
+  console.log(`- required: ${traceMetadata.traceMetadata.required.join(", ")}`);
+  console.log(`- optional: ${traceMetadata.traceMetadata.optional.join(", ")}`);
+
+  console.log("");
+  console.log(`Trace Types (${traceMetadata.traceTypes.length})`);
+  for (const traceType of traceMetadata.traceTypes) {
+    console.log(`- ${traceType}`);
+  }
 }

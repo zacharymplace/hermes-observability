@@ -1,4 +1,8 @@
 const { Langfuse } = require("langfuse");
+const fs = require("fs");
+
+const standard = JSON.parse(fs.readFileSync("dist/hermes-observability-standard.json", "utf8"));
+const environment = process.env.HERMES_ENVIRONMENT || process.env.NODE_ENV || "development";
 
 async function main() {
   const required = [

@@ -1,4 +1,8 @@
 const { Langfuse } = require("langfuse");
+const fs = require("fs");
+
+const standard = JSON.parse(fs.readFileSync("dist/hermes-observability-standard.json", "utf8"));
+const environment = process.env.HERMES_ENVIRONMENT || process.env.NODE_ENV || "development";
 
 const required = [
   "LANGFUSE_PUBLIC_KEY",
@@ -50,6 +54,8 @@ async function main() {
     name: "langfuse-doctor",
     metadata: {
       repo: "hermes-observability",
+      environment,
+      standard_version: standard.version,
       check: "credential-doctor",
       checked_at: new Date().toISOString(),
     },

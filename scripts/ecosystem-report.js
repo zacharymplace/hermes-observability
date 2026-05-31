@@ -53,6 +53,24 @@ function scriptsFor(repoPath) {
   return readJson(pkgPath).scripts || {};
 }
 
+function ensureNodeDependencies(repoPath) {
+  const pkgPath = path.join(repoPath, "package.json");
+  const lockPath = path.join(repoPath, "package-lock.json");
+  const modulesPath = path.join(repoPath, "node_modules");
+
+  if (!fs.existsSync(pkgPath)) return { ok: true, action: "no_package_json" };
+  if (fs.existsSync(modulesPath)) return { ok: true, action: "already_present" };
+
+  const installCommand = fs.existsSync(lockPath) ? "npm ci" : "npm install";
+  const install = run(installCommand, repoPath);
+
+  return {
+    ok: install.ok,
+    action: installCommand,
+    output: install.output,
+  };
+}
+
 function latestCiLine(repoPath) {
   const npmSummary = run("npm run ci:summary", repoPath);
   if (npmSummary.ok) return npmSummary.output.split("\n").find((line) => /completed \| success/.test(line)) || npmSummary.output.split("\n")[0] || "";
@@ -165,10 +183,14 @@ function inspectRepo(repo, sourceStandard) {
 
   const ciLine = exists ? latestCiLine(repoPath) : "";
 
-  let traceReviewCommand = "none";
-  let traceReview = { ok: false, output: "" };
+  const dependencyInstall = ensureNodeDependencies(repoPath);
 
-  if (scripts["trace:review"]) {
+  let traceReviewCommand = "none";
+  let traceReview = { ok: false, output: dependencyInstall.output || "" };
+
+  if (!dependencyInstall.ok) {
+    traceReviewCommand = dependencyInstall.action;
+  } else if (scripts["trace:review"]) {
     traceReviewCommand = "npm run trace:review";
     traceReview = run(traceReviewCommand, repoPath);
   } else if (scripts["hermes:observe"]) {
@@ -220,6 +242,8 @@ function inspectRepo(repo, sourceStandard) {
     possibleReasonCodes: possibleReasonCodesList,
     traceReviewPasses: traceReview.ok,
     traceReviewCommand,
+    dependencyInstallAction: dependencyInstall.action,
+    dependencyInstallPasses: dependencyInstall.ok,
     traceReviewOutputTail: String(traceReview.output || "").slice(-4000),
     traceReviewParseStatus: observedTraceReview ? "parsed" : "not_parsed",
     latestRecommendation: observedScore.recommendation || "unknown",
@@ -277,14 +301,14 @@ function markdown(report) {
   lines.push("");
   lines.push("## Trace Review Parse Diagnostics");
   lines.push("");
-  lines.push("| Repo | Command | Command Status | Parse Status | Output Tail |");
-  lines.push("|---|---|---:|---:|---|");
+  lines.push("| Repo | Dependency Action | Dependency Status | Command | Command Status | Parse Status | Output Tail |");
+  lines.push("|---|---|---:|---|---:|---:|---|");
   for (const repo of report.repos) {
     const tail = String(repo.traceReviewOutputTail || "")
       .replace(/\n/g, "<br>")
       .replace(/\|/g, "\\|")
       .slice(-500);
-    lines.push(`| ${repo.name} | ${repo.traceReviewCommand || "n/a"} | ${repo.traceReviewPasses ? "pass" : "fail"} | ${repo.traceReviewParseStatus || "unknown"} | ${tail || "n/a"} |`);
+    lines.push(`| ${repo.name} | ${repo.dependencyInstallAction || "n/a"} | ${repo.dependencyInstallPasses ? "pass" : "fail"} | ${repo.traceReviewCommand || "n/a"} | ${repo.traceReviewPasses ? "pass" : "fail"} | ${repo.traceReviewParseStatus || "unknown"} | ${tail || "n/a"} |`);
   }
   lines.push("");
   lines.push("## Latest CI");

@@ -1,6 +1,6 @@
 # Hermes Langfuse Ecosystem Report
 
-Generated: 2026-05-31T05:14:21.753Z
+Generated: 2026-05-31T05:21:34.124Z
 Source standard version: 0.1.0
 
 ## Summary
@@ -16,11 +16,11 @@ Source standard version: 0.1.0
 
 | Repo | Health | Recommendation | Readiness | Risk | Branch | Commit | Standard | Metadata | CI | Clean |
 |---|---:|---:|---:|---:|---|---|---:|---:|---:|---:|
-| ops-clarity-sprint | pass | promote | 1 | 0 | main | b3b90e8 | pass | pass | pass | pass |
+| ops-clarity-sprint | pass | promote | 1 | 0 | main | 754f737 | pass | pass | pass | pass |
 | ufc-decision-service | pass | promote | 1 | 0 | main | 89977a5 | pass | pass | pass | pass |
 | civic-league | pass | promote | 1 | 0 | main | bc9a546 | pass | pass | pass | pass |
 | host-aware-abundance | pass | promote | 1 | 0 | main | 994220f | pass | pass | pass | pass |
-| mirrorwall | pass | unknown | n/a | n/a | main | b86a306 | pass | pass | pass | pass |
+| mirrorwall | pass | unknown | n/a | n/a | main | 815a221 | pass | pass | pass | pass |
 | ai-ops-console | pass | promote | 1 | 0 | main | 086c162 | pass | pass | pass | pass |
 
 ## Review Outcomes
@@ -57,9 +57,9 @@ Source standard version: 0.1.0
 
 ## Latest CI
 
-- ops-clarity-sprint: Check #400 | completed | success | 98b5d9a | Add compact Hermes lifecycle status command
+- ops-clarity-sprint: Check #402 | completed | success | 754f737 | Release Hermes lifecycle status layer v0.1
 - ufc-decision-service: Policy Regression #68 | completed | success | 89977a5 | Emit standard metadata in UFC review trace
 - civic-league: CI #793 | completed | success | bc9a546 | Emit standard metadata in Civic review trace (#146)
 - host-aware-abundance: CI #181 | completed | success | 994220f | Emit standard metadata in Host-Aware review trace
-- mirrorwall: Mirrorwall Release Check #46 | completed | success | b86a306 | Emit standard metadata in Mirrorwall review trace
+- mirrorwall: Mirrorwall Release Check #47 | completed | success | 815a221 | Add Mirrorwall trace review script
 - ai-ops-console: CI #36 | completed | success | 086c162 | Emit standard metadata in AI Ops review trace

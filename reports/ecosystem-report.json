@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T05:14:21.753Z",
+  "generatedAt": "2026-05-31T05:21:34.124Z",
   "sourceStandardPath": "/Users/zplace/dev/hermes-observability/dist/hermes-observability-standard.json",
   "sourceStandardVersion": "0.1.0",
   "summary": {
@@ -35,7 +35,7 @@
       "name": "ops-clarity-sprint",
       "path": "/Users/zplace/dev/ops-clarity-sprint",
       "branch": "main",
-      "commit": "b3b90e8",
+      "commit": "754f737",
       "health": "pass",
       "failedChecks": 0,
       "localStandardExists": true,
@@ -55,7 +55,7 @@
       },
       "workingTreeClean": true,
       "latestCiSuccess": true,
-      "latestCiLine": "Check #400 | completed | success | 98b5d9a | Add compact Hermes lifecycle status command",
+      "latestCiLine": "Check #402 | completed | success | 754f737 | Release Hermes lifecycle status layer v0.1",
       "reasonCodes": [
         "all_checks_passed",
         "release_check_passed",
@@ -229,7 +229,7 @@
       "name": "mirrorwall",
       "path": "/Users/zplace/dev/mirrorwall",
       "branch": "main",
-      "commit": "b86a306",
+      "commit": "815a221",
       "health": "pass",
       "failedChecks": 0,
       "localStandardExists": true,
@@ -249,7 +249,7 @@
       },
       "workingTreeClean": true,
       "latestCiSuccess": true,
-      "latestCiLine": "Mirrorwall Release Check #46 | completed | success | b86a306 | Emit standard metadata in Mirrorwall review trace",
+      "latestCiLine": "Mirrorwall Release Check #47 | completed | success | 815a221 | Add Mirrorwall trace review script",
       "reasonCodes": [],
       "possibleReasonCodes": [
         "all_checks_passed",
@@ -263,7 +263,7 @@
         "status_json_available"
       ],
       "traceReviewPasses": false,
-      "traceReviewCommand": "npm run hermes:observe",
+      "traceReviewCommand": "npm run trace:review",
       "latestRecommendation": "unknown",
       "readiness": null,
       "risk": null,

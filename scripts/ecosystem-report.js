@@ -68,17 +68,14 @@ function gitValue(repoPath, command, fallback = "unknown") {
   return result.ok ? result.output : fallback;
 }
 
-function parseObservedReasonCodes(output) {
+function parseObservedTraceReview(output) {
   const jsonStart = output.indexOf("{");
-  if (jsonStart < 0) return [];
+  if (jsonStart < 0) return null;
 
   try {
-    const parsed = JSON.parse(output.slice(jsonStart));
-    return Array.isArray(parsed?.score?.reason_codes)
-      ? [...new Set(parsed.score.reason_codes)].sort()
-      : [];
+    return JSON.parse(output.slice(jsonStart));
   } catch {
-    return [];
+    return null;
   }
 }
 
@@ -124,7 +121,11 @@ function inspectRepo(repo, sourceStandard) {
     ? run("npm run trace:review", repoPath)
     : { ok: false, output: "" };
 
-  const reasonCodes = traceReview.ok ? parseObservedReasonCodes(traceReview.output) : [];
+  const observedTraceReview = traceReview.ok ? parseObservedTraceReview(traceReview.output) : null;
+  const observedScore = observedTraceReview?.score || {};
+  const reasonCodes = Array.isArray(observedScore.reason_codes)
+    ? [...new Set(observedScore.reason_codes)].sort()
+    : [];
   const possibleReasonCodesList = traceText ? possibleReasonCodes(traceText) : [];
 
   const healthChecks = [
@@ -163,6 +164,11 @@ function inspectRepo(repo, sourceStandard) {
     reasonCodes,
     possibleReasonCodes: possibleReasonCodesList,
     traceReviewPasses: traceReview.ok,
+    latestRecommendation: observedScore.recommendation || "unknown",
+    readiness: typeof observedScore.readiness === "number" ? observedScore.readiness : null,
+    risk: typeof observedScore.risk === "number" ? observedScore.risk : null,
+    confidence: typeof observedScore.confidence === "number" ? observedScore.confidence : null,
+    reviewStatus: observedTraceReview?.status || "unknown",
   };
 }
 
@@ -185,14 +191,23 @@ function markdown(report) {
   lines.push("");
   lines.push("## Repo Health");
   lines.push("");
-  lines.push("| Repo | Health | Branch | Commit | Standard | Metadata | CI | Clean |");
-  lines.push("|---|---:|---|---|---:|---:|---:|---:|");
+  lines.push("| Repo | Health | Recommendation | Readiness | Risk | Branch | Commit | Standard | Metadata | CI | Clean |");
+  lines.push("|---|---:|---:|---:|---:|---|---|---:|---:|---:|---:|");
 
   for (const repo of report.repos) {
     const metadataOk = Object.values(repo.metadata).every(Boolean);
-    lines.push(`| ${repo.name} | ${repo.health} | ${repo.branch} | ${repo.commit} | ${repo.localStandardMatches ? "pass" : "fail"} | ${metadataOk ? "pass" : "fail"} | ${repo.latestCiSuccess ? "pass" : "fail"} | ${repo.workingTreeClean ? "pass" : "fail"} |`);
+    lines.push(`| ${repo.name} | ${repo.health} | ${repo.latestRecommendation} | ${repo.readiness ?? "n/a"} | ${repo.risk ?? "n/a"} | ${repo.branch} | ${repo.commit} | ${repo.localStandardMatches ? "pass" : "fail"} | ${metadataOk ? "pass" : "fail"} | ${repo.latestCiSuccess ? "pass" : "fail"} | ${repo.workingTreeClean ? "pass" : "fail"} |`);
   }
 
+
+  lines.push("");
+  lines.push("## Review Outcomes");
+  lines.push("");
+  lines.push("| Repo | Trace Review | Recommendation | Readiness | Risk | Confidence |");
+  lines.push("|---|---:|---:|---:|---:|---:|");
+  for (const repo of report.repos) {
+    lines.push(`| ${repo.name} | ${repo.traceReviewPasses ? "pass" : "fail"} | ${repo.latestRecommendation} | ${repo.readiness ?? "n/a"} | ${repo.risk ?? "n/a"} | ${repo.confidence ?? "n/a"} |`);
+  }
   lines.push("");
   lines.push("## Reason Code Rollup");
   lines.push("");

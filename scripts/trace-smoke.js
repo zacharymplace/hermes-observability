@@ -26,6 +26,9 @@ async function main() {
     name: "hermes-observability-smoke",
     metadata: {
       subsystem: "hermes-observability",
+      repo: "hermes-observability",
+      environment,
+      standard_version: standard.version,
       check: "trace-ingestion",
       timestamp: new Date().toISOString(),
     },

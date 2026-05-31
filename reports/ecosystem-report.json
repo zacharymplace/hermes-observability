@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-05-31T04:54:37.023Z",
+  "generatedAt": "2026-05-31T05:02:50.530Z",
   "sourceStandardPath": "/Users/zplace/dev/hermes-observability/dist/hermes-observability-standard.json",
   "sourceStandardVersion": "0.1.0",
   "summary": {
     "total": 6,
-    "pass": 6,
-    "watch": 0,
+    "pass": 5,
+    "watch": 1,
     "hold": 0,
     "staleStandards": 0,
-    "dirtyWorkingTrees": 0
+    "dirtyWorkingTrees": 1
   },
   "reasonCodeRollup": {
     "all_checks_passed": 5,
@@ -35,9 +35,9 @@
       "name": "ops-clarity-sprint",
       "path": "/Users/zplace/dev/ops-clarity-sprint",
       "branch": "main",
-      "commit": "e336dc9",
-      "health": "pass",
-      "failedChecks": 0,
+      "commit": "cc1b764",
+      "health": "watch",
+      "failedChecks": 1,
       "localStandardExists": true,
       "localStandardMatches": true,
       "hasStandardVerify": true,
@@ -53,9 +53,9 @@
         "trace_type": true,
         "review": true
       },
-      "workingTreeClean": true,
+      "workingTreeClean": false,
       "latestCiSuccess": true,
-      "latestCiLine": "Check #396 | completed | success | e336dc9 | Include release summary in lifecycle check",
+      "latestCiLine": "Check #397 | completed | success | d4ab690 | Emit machine-readable lifecycle release summary",
       "reasonCodes": [
         "all_checks_passed",
         "release_check_passed",
@@ -68,6 +68,7 @@
         "repo_check_passed"
       ],
       "traceReviewPasses": true,
+      "traceReviewCommand": "npm run trace:review",
       "latestRecommendation": "promote",
       "readiness": 1,
       "risk": 0,
@@ -117,6 +118,7 @@
         "threshold_fixtures_passed"
       ],
       "traceReviewPasses": true,
+      "traceReviewCommand": "npm run trace:review",
       "latestRecommendation": "promote",
       "readiness": 1,
       "risk": 0,
@@ -166,6 +168,7 @@
         "season_readiness_passed"
       ],
       "traceReviewPasses": true,
+      "traceReviewCommand": "npm run trace:review",
       "latestRecommendation": "promote",
       "readiness": 1,
       "risk": 0,
@@ -215,6 +218,7 @@
         "simulation_run_passed"
       ],
       "traceReviewPasses": true,
+      "traceReviewCommand": "npm run trace:review",
       "latestRecommendation": "promote",
       "readiness": 1,
       "risk": 0,
@@ -259,6 +263,7 @@
         "status_json_available"
       ],
       "traceReviewPasses": false,
+      "traceReviewCommand": "npm run hermes:observe",
       "latestRecommendation": "unknown",
       "readiness": null,
       "risk": null,
@@ -308,6 +313,7 @@
         "repo_check_passed"
       ],
       "traceReviewPasses": true,
+      "traceReviewCommand": "npm run trace:review",
       "latestRecommendation": "promote",
       "readiness": 1,
       "risk": 0,

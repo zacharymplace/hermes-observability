@@ -1,22 +1,22 @@
 # Hermes Langfuse Ecosystem Report
 
-Generated: 2026-05-31T04:54:37.023Z
+Generated: 2026-05-31T05:02:50.530Z
 Source standard version: 0.1.0
 
 ## Summary
 
 - Repos: 6
-- Pass: 6
-- Watch: 0
+- Pass: 5
+- Watch: 1
 - Hold: 0
 - Stale standards: 0
-- Dirty working trees: 0
+- Dirty working trees: 1
 
 ## Repo Health
 
 | Repo | Health | Recommendation | Readiness | Risk | Branch | Commit | Standard | Metadata | CI | Clean |
 |---|---:|---:|---:|---:|---|---|---:|---:|---:|---:|
-| ops-clarity-sprint | pass | promote | 1 | 0 | main | e336dc9 | pass | pass | pass | pass |
+| ops-clarity-sprint | watch | promote | 1 | 0 | main | cc1b764 | pass | pass | pass | fail |
 | ufc-decision-service | pass | promote | 1 | 0 | main | 89977a5 | pass | pass | pass | pass |
 | civic-league | pass | promote | 1 | 0 | main | bc9a546 | pass | pass | pass | pass |
 | host-aware-abundance | pass | promote | 1 | 0 | main | 994220f | pass | pass | pass | pass |
@@ -57,7 +57,7 @@ Source standard version: 0.1.0
 
 ## Latest CI
 
-- ops-clarity-sprint: Check #396 | completed | success | e336dc9 | Include release summary in lifecycle check
+- ops-clarity-sprint: Check #397 | completed | success | d4ab690 | Emit machine-readable lifecycle release summary
 - ufc-decision-service: Policy Regression #68 | completed | success | 89977a5 | Emit standard metadata in UFC review trace
 - civic-league: CI #793 | completed | success | bc9a546 | Emit standard metadata in Civic review trace (#146)
 - host-aware-abundance: CI #181 | completed | success | 994220f | Emit standard metadata in Host-Aware review trace

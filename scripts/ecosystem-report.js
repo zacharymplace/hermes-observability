@@ -117,9 +117,16 @@ function inspectRepo(repo, sourceStandard) {
 
   const ciLine = exists ? latestCiLine(repoPath) : "";
 
-  const traceReview = scripts["trace:review"]
-    ? run("npm run trace:review", repoPath)
-    : { ok: false, output: "" };
+  let traceReviewCommand = "none";
+  let traceReview = { ok: false, output: "" };
+
+  if (scripts["trace:review"]) {
+    traceReviewCommand = "npm run trace:review";
+    traceReview = run(traceReviewCommand, repoPath);
+  } else if (scripts["hermes:observe"]) {
+    traceReviewCommand = "npm run hermes:observe";
+    traceReview = run(traceReviewCommand, repoPath);
+  }
 
   const observedTraceReview = traceReview.ok ? parseObservedTraceReview(traceReview.output) : null;
   const observedScore = observedTraceReview?.score || {};
@@ -164,6 +171,7 @@ function inspectRepo(repo, sourceStandard) {
     reasonCodes,
     possibleReasonCodes: possibleReasonCodesList,
     traceReviewPasses: traceReview.ok,
+    traceReviewCommand,
     latestRecommendation: observedScore.recommendation || "unknown",
     readiness: typeof observedScore.readiness === "number" ? observedScore.readiness : null,
     risk: typeof observedScore.risk === "number" ? observedScore.risk : null,

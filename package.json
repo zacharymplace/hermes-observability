@@ -15,7 +15,8 @@
     "standard:export": "node scripts/standard-export.js",
     "standard:verify-export": "node scripts/verify-standard-export.js",
     "langfuse:doctor": "node scripts/langfuse-doctor.js",
-    "ecosystem:audit": "node scripts/ecosystem-audit.js"
+    "ecosystem:audit": "node scripts/ecosystem-audit.js",
+    "ecosystem:gate": "npm run standard:export && npm run ecosystem:audit"
   },
   "dependencies": {
     "langfuse": "latest"

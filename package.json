@@ -13,7 +13,8 @@
     "standard:report": "node scripts/standard-report.js",
     "standard:report:json": "node scripts/standard-report.js --json",
     "standard:export": "node scripts/standard-export.js",
-    "standard:verify-export": "node scripts/verify-standard-export.js"
+    "standard:verify-export": "node scripts/verify-standard-export.js",
+    "langfuse:doctor": "node scripts/langfuse-doctor.js"
   },
   "dependencies": {
     "langfuse": "latest"

@@ -4,11 +4,45 @@ const fs = require("fs");
 const path = require("path");
 
 const root = process.cwd();
-const standardPath = path.join(root, "standards", "readiness.json");
-const fixturePath = path.join(root, "fixtures", "readiness", "valid-agent-trace.json");
-const reportsDir = path.join(root, "reports", "readiness");
-const jsonReportPath = path.join(reportsDir, "latest-readiness.json");
-const markdownReportPath = path.join(reportsDir, "latest-readiness.md");
+
+function parseArgs(argv) {
+  const options = {
+    standard: path.join(root, "standards", "readiness.json"),
+    fixture: path.join(root, "fixtures", "readiness", "valid-agent-trace.json"),
+    outJson: path.join(root, "reports", "readiness", "latest-readiness.json"),
+    outMd: path.join(root, "reports", "readiness", "latest-readiness.md")
+  };
+
+  for (let index = 2; index < argv.length; index += 1) {
+    const arg = argv[index];
+    const value = argv[index + 1];
+
+    if (arg === "--standard") {
+      options.standard = path.resolve(root, value);
+      index += 1;
+    } else if (arg === "--fixture") {
+      options.fixture = path.resolve(root, value);
+      index += 1;
+    } else if (arg === "--out-json") {
+      options.outJson = path.resolve(root, value);
+      index += 1;
+    } else if (arg === "--out-md") {
+      options.outMd = path.resolve(root, value);
+      index += 1;
+    } else {
+      throw new Error(`Unknown argument: ${arg}`);
+    }
+  }
+
+  return options;
+}
+
+const cliOptions = parseArgs(process.argv);
+const standardPath = cliOptions.standard;
+const fixturePath = cliOptions.fixture;
+const jsonReportPath = cliOptions.outJson;
+const markdownReportPath = cliOptions.outMd;
+const reportsDir = path.dirname(jsonReportPath);
 
 function readJson(filePath) {
   try {

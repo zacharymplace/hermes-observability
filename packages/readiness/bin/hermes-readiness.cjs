@@ -1,5 +1,3 @@
 #!/usr/bin/env node
 
-const { run } = require("../src/cli.cjs");
-
-run();
+require("../src/cli.cjs");

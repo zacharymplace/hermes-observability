@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "0.1.0",
+  "generatedAt": "2026-06-01T02:40:03.119Z",
+  "status": "warn",
+  "sourceRepo": "hermes-observability",
+  "downstreamRepos": [
+    {
+      "name": "ai-ops-console",
+      "path": "/Users/zplace/dev/ai-ops-console"
+    },
+    {
+      "name": "ops-clarity-sprint",
+      "path": "/Users/zplace/dev/ops-clarity-sprint"
+    },
+    {
+      "name": "repo-template",
+      "path": "/Users/zplace/dev/repo-template"
+    }
+  ],
+  "summary": {
+    "match": 9,
+    "drift": 3,
+    "downstream_missing": 0,
+    "source_missing": 0,
+    "repo_missing": 0
+  },
+  "results": [
+    {
+      "repo": "ai-ops-console",
+      "file": "standards/readiness.json",
+      "label": "readiness standard",
+      "status": "match",
+      "source": "standards/readiness.json",
+      "downstream": "standards/readiness.json",
+      "sourceHash": "0ae3a8dc9272cb22c7dd0f08c0e0175f67b03486b2ea0950e775f5dc82646db8",
+      "downstreamHash": "0ae3a8dc9272cb22c7dd0f08c0e0175f67b03486b2ea0950e775f5dc82646db8"
+    },
+    {
+      "repo": "ai-ops-console",
+      "file": "fixtures/readiness/valid-agent-trace.json",
+      "label": "valid readiness fixture",
+      "status": "match",
+      "source": "fixtures/readiness/valid-agent-trace.json",
+      "downstream": "fixtures/readiness/valid-agent-trace.json",
+      "sourceHash": "522d7676fbedff50b4948a94eac7dae707f1765cd9149eebf4e6324b1d8330b7",
+      "downstreamHash": "522d7676fbedff50b4948a94eac7dae707f1765cd9149eebf4e6324b1d8330b7"
+    },
+    {
+      "repo": "ai-ops-console",
+      "file": "docs/runbooks/hermes-readiness.md",
+      "label": "readiness runbook",
+      "status": "match",
+      "source": "docs/runbooks/hermes-readiness.md",
+      "downstream": "docs/runbooks/hermes-readiness.md",
+      "sourceHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd",
+      "downstreamHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd"
+    },
+    {
+      "repo": "ai-ops-console",
+      "file": "scripts/hermes-readiness.cjs",
+      "label": "readiness script",
+      "status": "drift",
+      "source": "scripts/hermes-readiness.js",
+      "downstream": "scripts/hermes-readiness.cjs",
+      "sourceHash": "963c9fdbb19c2f5fdec8411e65bfd3b19aaa4bae064e772373bf1c78f4ae813a",
+      "downstreamHash": "953505958bd3ef968b443523a28da938c4f46af06d236c7a378c116dabd58361"
+    },
+    {
+      "repo": "ops-clarity-sprint",
+      "file": "standards/readiness.json",
+      "label": "readiness standard",
+      "status": "match",
+      "source": "standards/readiness.json",
+      "downstream": "standards/readiness.json",
+      "sourceHash": "0ae3a8dc9272cb22c7dd0f08c0e0175f67b03486b2ea0950e775f5dc82646db8",
+      "downstreamHash": "0ae3a8dc9272cb22c7dd0f08c0e0175f67b03486b2ea0950e775f5dc82646db8"
+    },
+    {
+      "repo": "ops-clarity-sprint",
+      "file": "fixtures/readiness/valid-agent-trace.json",
+      "label": "valid readiness fixture",
+      "status": "match",
+      "source": "fixtures/readiness/valid-agent-trace.json",
+      "downstream": "fixtures/readiness/valid-agent-trace.json",
+      "sourceHash": "522d7676fbedff50b4948a94eac7dae707f1765cd9149eebf4e6324b1d8330b7",
+      "downstreamHash": "522d7676fbedff50b4948a94eac7dae707f1765cd9149eebf4e6324b1d8330b7"
+    },
+    {
+      "repo": "ops-clarity-sprint",
+      "file": "docs/runbooks/hermes-readiness.md",
+      "label": "readiness runbook",
+      "status": "match",
+      "source": "docs/runbooks/hermes-readiness.md",
+      "downstream": "docs/runbooks/hermes-readiness.md",
+      "sourceHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd",
+      "downstreamHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd"
+    },
+    {
+      "repo": "ops-clarity-sprint",
+      "file": "scripts/hermes-readiness.cjs",
+      "label": "readiness script",
+      "status": "drift",
+      "source": "scripts/hermes-readiness.js",
+      "downstream": "scripts/hermes-readiness.cjs",
+      "sourceHash": "963c9fdbb19c2f5fdec8411e65bfd3b19aaa4bae064e772373bf1c78f4ae813a",
+      "downstreamHash": "953505958bd3ef968b443523a28da938c4f46af06d236c7a378c116dabd58361"
+    },
+    {
+      "repo": "repo-template",
+      "file": "standards/readiness.json",
+      "label": "readiness standard",
+      "status": "match",
+      "source": "standards/readiness.json",
+      "downstream": "standards/readiness.json",
+      "sourceHash": "0ae3a8dc9272cb22c7dd0f08c0e0175f67b03486b2ea0950e775f5dc82646db8",
+      "downstreamHash": "0ae3a8dc9272cb22c7dd0f08c0e0175f67b03486b2ea0950e775f5dc82646db8"
+    },
+    {
+      "repo": "repo-template",
+      "file": "fixtures/readiness/valid-agent-trace.json",
+      "label": "valid readiness fixture",
+      "status": "match",
+      "source": "fixtures/readiness/valid-agent-trace.json",
+      "downstream": "fixtures/readiness/valid-agent-trace.json",
+      "sourceHash": "522d7676fbedff50b4948a94eac7dae707f1765cd9149eebf4e6324b1d8330b7",
+      "downstreamHash": "522d7676fbedff50b4948a94eac7dae707f1765cd9149eebf4e6324b1d8330b7"
+    },
+    {
+      "repo": "repo-template",
+      "file": "docs/runbooks/hermes-readiness.md",
+      "label": "readiness runbook",
+      "status": "match",
+      "source": "docs/runbooks/hermes-readiness.md",
+      "downstream": "docs/runbooks/hermes-readiness.md",
+      "sourceHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd",
+      "downstreamHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd"
+    },
+    {
+      "repo": "repo-template",
+      "file": "scripts/hermes-readiness.cjs",
+      "label": "readiness script",
+      "status": "drift",
+      "source": "scripts/hermes-readiness.js",
+      "downstream": "scripts/hermes-readiness.cjs",
+      "sourceHash": "963c9fdbb19c2f5fdec8411e65bfd3b19aaa4bae064e772373bf1c78f4ae813a",
+      "downstreamHash": "953505958bd3ef968b443523a28da938c4f46af06d236c7a378c116dabd58361"
+    }
+  ]
+}

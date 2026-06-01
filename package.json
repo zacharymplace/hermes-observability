@@ -5,7 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "trace:smoke": "node scripts/trace-smoke.js",
-    "check": "npm run standards:check && npm run standards:shape && npm run standard:report && npm run standard:report:json && npm run standard:export && npm run standard:verify-export && npm run hermes:readiness && npm run test:readiness && npm run test:readiness:module",
+    "check": "npm run standards:check && npm run standards:shape && npm run standard:report && npm run standard:report:json && npm run standard:export && npm run standard:verify-export && npm run hermes:readiness && npm run test:readiness && npm run test:readiness:module && npm run readiness:package:check",
     "standards:check": "node scripts/check-standards.js",
     "ci:summary": "bash scripts/github-ci-summary.sh",
     "hermes:observe": "npm run check && npm run trace:smoke && npm run ci:summary",
@@ -23,7 +23,9 @@
     "hermes:readiness": "node scripts/hermes-readiness.js",
     "test:readiness": "node tests/readiness/validator.test.cjs",
     "test:readiness:module": "node tests/readiness/module.test.cjs",
-    "readiness:drift": "node scripts/readiness-drift-audit.js"
+    "readiness:drift": "node scripts/readiness-drift-audit.js",
+    "readiness:package:smoke": "node packages/readiness/bin/hermes-readiness.cjs",
+    "readiness:package:check": "npm run readiness:package:smoke"
   },
   "dependencies": {
     "langfuse": "latest"

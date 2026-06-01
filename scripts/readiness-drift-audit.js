@@ -21,7 +21,8 @@ const downstreamRepos = [
   {
     name: "repo-template",
     path: path.join(defaultRepoRoot, "repo-template"),
-    scriptPath: "scripts/hermes-readiness.cjs"
+    scriptPath: "scripts/hermes-readiness.cjs",
+    packageStyle: true
   }
 ];
 
@@ -119,20 +120,31 @@ function auditRepo(repo) {
     })
   );
 
-  const scriptResult = compareFile({
-    repo,
-    label: copiedScript.label,
-    sourceRelative: copiedScript.source,
-    downstreamRelative: repo.scriptPath
-  });
+  if (repo.packageStyle) {
+    results.push({
+      repo: repo.name,
+      file: "package.json",
+      label: "readiness command",
+      status: "package_style",
+      reason:
+        "Repo uses the future package-style hermes-readiness command instead of a copied readiness script."
+    });
+  } else {
+    const scriptResult = compareFile({
+      repo,
+      label: copiedScript.label,
+      sourceRelative: copiedScript.source,
+      downstreamRelative: repo.scriptPath
+    });
 
-  if (scriptResult.status === "drift" && repo.scriptPath.endsWith(".cjs")) {
-    scriptResult.status = "expected_drift";
-    scriptResult.reason =
-      "Downstream repos currently use copied CommonJS .cjs scripts while source has moved to modular .js internals before package extraction.";
+    if (scriptResult.status === "drift" && repo.scriptPath.endsWith(".cjs")) {
+      scriptResult.status = "expected_drift";
+      scriptResult.reason =
+        "Downstream repos currently use copied CommonJS .cjs scripts while source has moved to modular .js internals before package extraction.";
+    }
+
+    results.push(scriptResult);
   }
-
-  results.push(scriptResult);
 
   return results;
 }
@@ -166,6 +178,7 @@ Status: **${report.status.toUpperCase()}**
 - Missing source files: ${report.summary.source_missing}
 - Missing repos: ${report.summary.repo_missing}
 - Expected drift: ${report.summary.expected_drift}
+- Package-style repos: ${report.summary.package_style}
 
 ## Results
 
@@ -199,7 +212,8 @@ function main() {
       downstream_missing: 0,
       source_missing: 0,
       repo_missing: 0,
-      expected_drift: 0
+      expected_drift: 0,
+      package_style: 0
     }
   );
 

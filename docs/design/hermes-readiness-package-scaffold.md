@@ -42,3 +42,15 @@ Still pending:
 ## Recommended Next Step
 
 Add package-local tests and make the package scaffold run independently from root scripts.
+
+## Migration Status Update
+
+The scaffold has completed its purpose as a reversible extraction target.
+
+Package-style readiness wiring has now been piloted across:
+
+- `repo-template`
+- `ai-ops-console`
+- `ops-clarity-sprint`
+
+The next step is to make `packages/readiness` package-local enough to replace temporary downstream shims.

@@ -300,3 +300,31 @@ Recommended next implementation:
   2. add tests around the readiness validator
   3. add CLI options without changing downstream behavior
   4. then migrate downstream repos from copied script to package usage
+
+## Package Migration Readiness Update
+
+The package boundary is now validated enough to move into real migration work.
+
+Validated downstream states:
+
+- `repo-template`: package-style command path validated
+- `ai-ops-console`: package-style shim validated locally and on main
+- `ops-clarity-sprint`: package-style shim validated locally and in CI
+
+The drift audit now reports:
+
+- Expected drift: `0`
+- Package-style repos: `3`
+
+This means the remaining work is no longer proving portability. The remaining work is replacing temporary shims with an installable package boundary.
+
+## Next Package Work
+
+The next implementation push should focus on:
+
+1. package-local default path resolution
+2. package-local fixture and standard loading
+3. package-local tests that do not depend on root layout
+4. package install strategy
+5. downstream migration from shim to package command
+6. package version audit replacing copied-file drift audit

@@ -1,6 +1,6 @@
 # Hermes Readiness Downstream Drift Audit
 
-Generated at: 2026-06-01T03:33:38.347Z
+Generated at: 2026-06-01T03:42:49.517Z
 
 Status: **PASS**
 
@@ -11,8 +11,8 @@ Status: **PASS**
 - Missing downstream files: 0
 - Missing source files: 0
 - Missing repos: 0
-- Expected drift: 1
-- Package-style repos: 2
+- Expected drift: 0
+- Package-style repos: 3
 
 ## Results
 
@@ -25,7 +25,7 @@ Status: **PASS**
 | ops-clarity-sprint | readiness standard | `standards/readiness.json` | match |
 | ops-clarity-sprint | valid readiness fixture | `fixtures/readiness/valid-agent-trace.json` | match |
 | ops-clarity-sprint | readiness runbook | `docs/runbooks/hermes-readiness.md` | match |
-| ops-clarity-sprint | readiness script | `scripts/hermes-readiness.cjs` | expected_drift |
+| ops-clarity-sprint | readiness command | `package.json` | package_style |
 | repo-template | readiness standard | `standards/readiness.json` | match |
 | repo-template | valid readiness fixture | `fixtures/readiness/valid-agent-trace.json` | match |
 | repo-template | readiness runbook | `docs/runbooks/hermes-readiness.md` | match |
@@ -34,7 +34,7 @@ Status: **PASS**
 ## Non-Matching Items
 
 - ai-ops-console: readiness command (package_style) — `package.json` — Repo uses the future package-style hermes-readiness command instead of a copied readiness script.
-- ops-clarity-sprint: readiness script (expected_drift) — `scripts/hermes-readiness.cjs` — Downstream repos currently use copied CommonJS .cjs scripts while source has moved to modular .js internals before package extraction.
+- ops-clarity-sprint: readiness command (package_style) — `package.json` — Repo uses the future package-style hermes-readiness command instead of a copied readiness script.
 - repo-template: readiness command (package_style) — `package.json` — Repo uses the future package-style hermes-readiness command instead of a copied readiness script.
 
 ## Notes

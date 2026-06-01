@@ -17,7 +17,8 @@ const downstreamRepos = [
   {
     name: "ops-clarity-sprint",
     path: path.join(defaultRepoRoot, "ops-clarity-sprint"),
-    scriptPath: "scripts/hermes-readiness.cjs"
+    scriptPath: "scripts/hermes-readiness-package-shim.cjs",
+    packageStyle: true
   },
   {
     name: "repo-template",

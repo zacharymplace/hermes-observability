@@ -1,0 +1,39 @@
+{
+  "version": "0.1.0",
+  "requiredTraceFields": [
+    "trace_id",
+    "run_id",
+    "schema_version",
+    "tool_version",
+    "event_name",
+    "timestamp",
+    "environment",
+    "privacy_level"
+  ],
+  "recommendedTraceFields": [
+    "session_id",
+    "user_intent",
+    "model",
+    "provider",
+    "latency_ms",
+    "input_tokens",
+    "output_tokens",
+    "cost_usd"
+  ],
+  "privacyDefaults": {
+    "allowRawPromptLogging": false,
+    "allowRawCompletionLogging": false,
+    "requireRedaction": true,
+    "requireSensitiveFieldList": true
+  },
+  "artifactMetadata": [
+    "schema_version",
+    "tool_version",
+    "run_id",
+    "generated_at"
+  ],
+  "reports": [
+    "json",
+    "markdown"
+  ]
+}

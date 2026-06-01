@@ -328,3 +328,12 @@ The next implementation push should focus on:
 4. package install strategy
 5. downstream migration from shim to package command
 6. package version audit replacing copied-file drift audit
+
+## Distribution Design Pointer
+
+Package distribution is now tracked separately in:
+
+- docs/design/hermes-readiness-package-distribution.md
+- docs/runbooks/hermes-readiness-package-distribution.md
+
+Those documents define the path from scaffold package to real installed @hermes/readiness usage across downstream repos.

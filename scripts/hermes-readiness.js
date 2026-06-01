@@ -3,206 +3,43 @@
 const fs = require("fs");
 const path = require("path");
 
+const {
+  parseArgs,
+  readJson,
+  buildMarkdown,
+  validateReadiness
+} = require("../lib/readiness");
+
 const root = process.cwd();
 
-function parseArgs(argv) {
-  const options = {
-    standard: path.join(root, "standards", "readiness.json"),
-    fixture: path.join(root, "fixtures", "readiness", "valid-agent-trace.json"),
-    outJson: path.join(root, "reports", "readiness", "latest-readiness.json"),
-    outMd: path.join(root, "reports", "readiness", "latest-readiness.md")
-  };
-
-  for (let index = 2; index < argv.length; index += 1) {
-    const arg = argv[index];
-    const value = argv[index + 1];
-
-    if (arg === "--standard") {
-      options.standard = path.resolve(root, value);
-      index += 1;
-    } else if (arg === "--fixture") {
-      options.fixture = path.resolve(root, value);
-      index += 1;
-    } else if (arg === "--out-json") {
-      options.outJson = path.resolve(root, value);
-      index += 1;
-    } else if (arg === "--out-md") {
-      options.outMd = path.resolve(root, value);
-      index += 1;
-    } else {
-      throw new Error(`Unknown argument: ${arg}`);
-    }
-  }
-
-  return options;
-}
-
-const cliOptions = parseArgs(process.argv);
-const standardPath = cliOptions.standard;
-const fixturePath = cliOptions.fixture;
-const jsonReportPath = cliOptions.outJson;
-const markdownReportPath = cliOptions.outMd;
-const reportsDir = path.dirname(jsonReportPath);
-
-function readJson(filePath) {
-  try {
-    return JSON.parse(fs.readFileSync(filePath, "utf8"));
-  } catch (error) {
-    throw new Error(`Unable to read JSON at ${filePath}: ${error.message}`);
-  }
-}
-
-function hasOwn(object, key) {
-  return Object.prototype.hasOwnProperty.call(object, key);
-}
-
-function checkRequiredFields(trace, requiredFields) {
-  return requiredFields
-    .filter((field) => !hasOwn(trace, field) || trace[field] === null || trace[field] === "")
-    .map((field) => ({
-      id: `missing_required_trace_field:${field}`,
-      severity: "fail",
-      message: `Missing required trace field: ${field}`
-    }));
-}
-
-function checkRecommendedFields(trace, recommendedFields) {
-  return recommendedFields
-    .filter((field) => !hasOwn(trace, field) || trace[field] === null || trace[field] === "")
-    .map((field) => ({
-      id: `missing_recommended_trace_field:${field}`,
-      severity: "warn",
-      message: `Missing recommended trace field: ${field}`
-    }));
-}
-
-function checkPrivacyDefaults(trace, defaults) {
-  const findings = [];
-  const privacy = trace.privacy || {};
-
-  if (privacy.allowRawPromptLogging !== defaults.allowRawPromptLogging) {
-    findings.push({
-      id: "privacy_raw_prompt_logging",
-      severity: "fail",
-      message: "Raw prompt logging must be disabled by default."
-    });
-  }
-
-  if (privacy.allowRawCompletionLogging !== defaults.allowRawCompletionLogging) {
-    findings.push({
-      id: "privacy_raw_completion_logging",
-      severity: "fail",
-      message: "Raw completion logging must be disabled by default."
-    });
-  }
-
-  if (defaults.requireRedaction && privacy.redactionEnabled !== true) {
-    findings.push({
-      id: "privacy_redaction_required",
-      severity: "fail",
-      message: "Redaction must be enabled."
-    });
-  }
-
-  if (
-    defaults.requireSensitiveFieldList &&
-    (!Array.isArray(privacy.sensitiveFields) || privacy.sensitiveFields.length === 0)
-  ) {
-    findings.push({
-      id: "privacy_sensitive_fields_required",
-      severity: "fail",
-      message: "Sensitive field list is required."
-    });
-  }
-
-  return findings;
-}
-
-function checkArtifactMetadata(trace, metadataFields) {
-  const artifact = trace.artifact || {};
-  return metadataFields
-    .filter((field) => !hasOwn(artifact, field) || artifact[field] === null || artifact[field] === "")
-    .map((field) => ({
-      id: `missing_artifact_metadata:${field}`,
-      severity: "fail",
-      message: `Missing artifact metadata field: ${field}`
-    }));
-}
-
-function buildMarkdown(report) {
-  const failCount = report.summary.fail;
-  const warnCount = report.summary.warn;
-  const passIcon = report.status === "pass" ? "PASS" : "FAIL";
-
-  const findingRows = report.findings.length
-    ? report.findings.map((finding) => `- **${finding.severity.toUpperCase()}** ${finding.id}: ${finding.message}`).join("\n")
-    : "- No findings.";
-
-  return `# Hermes Agent/MCP Observability Readiness Report
-
-Status: **${passIcon}**
-
-Generated at: ${report.generated_at}
-
-## Summary
-
-- Failures: ${failCount}
-- Warnings: ${warnCount}
-- Fixture: \`${report.fixture}\`
-- Standard version: \`${report.standard_version}\`
-
-## Checks
-
-- Required trace metadata
-- Recommended trace metadata
-- Privacy-safe logging defaults
-- Artifact metadata envelope
-- JSON report generation
-- Markdown report generation
-
-## Findings
-
-${findingRows}
-
-## Next Actions
-
-${report.status === "pass"
-  ? "- Pilot this readiness check against ai-ops-console and ops-clarity-sprint."
-  : "- Fix failing readiness findings before piloting this check downstream."}
-`;
-}
-
 function main() {
+  const cliOptions = parseArgs(process.argv, root);
+
+  const standardPath = cliOptions.standard;
+  const fixturePath = cliOptions.fixture;
+  const jsonReportPath = cliOptions.outJson;
+  const markdownReportPath = cliOptions.outMd;
+  const reportsDir = path.dirname(jsonReportPath);
+
   const standard = readJson(standardPath);
   const trace = readJson(fixturePath);
-
-  const findings = [
-    ...checkRequiredFields(trace, standard.requiredTraceFields || []),
-    ...checkRecommendedFields(trace, standard.recommendedTraceFields || []),
-    ...checkPrivacyDefaults(trace, standard.privacyDefaults || {}),
-    ...checkArtifactMetadata(trace, standard.artifactMetadata || [])
-  ];
-
-  const summary = {
-    fail: findings.filter((finding) => finding.severity === "fail").length,
-    warn: findings.filter((finding) => finding.severity === "warn").length
-  };
+  const validation = validateReadiness({ standard, trace });
 
   const report = {
     schema_version: "0.1.0",
     tool_version: "hermes-observability@0.1.0",
     generated_at: new Date().toISOString(),
-    status: summary.fail === 0 ? "pass" : "fail",
+    status: validation.status,
     standard_version: standard.version,
     fixture: path.relative(root, fixturePath),
-    summary,
+    summary: validation.summary,
     checks: {
       requiredTraceFields: standard.requiredTraceFields || [],
       recommendedTraceFields: standard.recommendedTraceFields || [],
       privacyDefaults: standard.privacyDefaults || {},
       artifactMetadata: standard.artifactMetadata || []
     },
-    findings
+    findings: validation.findings
   };
 
   fs.mkdirSync(reportsDir, { recursive: true });

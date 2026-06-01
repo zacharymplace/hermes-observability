@@ -11,7 +11,8 @@ const downstreamRepos = [
   {
     name: "ai-ops-console",
     path: path.join(defaultRepoRoot, "ai-ops-console"),
-    scriptPath: "scripts/hermes-readiness.cjs"
+    scriptPath: "scripts/hermes-readiness-package-shim.cjs",
+    packageStyle: true
   },
   {
     name: "ops-clarity-sprint",

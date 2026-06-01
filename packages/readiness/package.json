@@ -1,0 +1,19 @@
+{
+  "name": "@hermes/readiness",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hermes readiness validation for AI-agent observability, privacy defaults, artifact metadata, and repo readiness reports.",
+  "type": "commonjs",
+  "bin": {
+    "hermes-readiness": "bin/hermes-readiness.cjs"
+  },
+  "main": "src/index.cjs",
+  "files": [
+    "bin/",
+    "src/",
+    "standards/",
+    "fixtures/",
+    "README.md"
+  ],
+  "license": "UNLICENSED"
+}

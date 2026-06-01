@@ -1,0 +1,30 @@
+{
+  "trace_id": "trace_demo_001",
+  "run_id": "run_demo_001",
+  "schema_version": "0.1.0",
+  "tool_version": "hermes-observability@0.1.0",
+  "event_name": "agent.tool.call",
+  "timestamp": "2026-05-31T00:00:00.000Z",
+  "environment": "local",
+  "privacy_level": "redacted",
+  "session_id": "session_demo_001",
+  "user_intent": "validate readiness fixture",
+  "model": "demo-model",
+  "provider": "demo-provider",
+  "latency_ms": 42,
+  "input_tokens": 10,
+  "output_tokens": 12,
+  "cost_usd": 0,
+  "privacy": {
+    "allowRawPromptLogging": false,
+    "allowRawCompletionLogging": false,
+    "redactionEnabled": true,
+    "sensitiveFields": ["email", "token", "secret", "api_key"]
+  },
+  "artifact": {
+    "schema_version": "0.1.0",
+    "tool_version": "hermes-observability@0.1.0",
+    "run_id": "run_demo_001",
+    "generated_at": "2026-05-31T00:00:00.000Z"
+  }
+}

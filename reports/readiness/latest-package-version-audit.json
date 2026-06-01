@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-01T04:46:29.145Z",
+  "generatedAt": "2026-06-01T05:02:13.402Z",
   "status": "pass",
   "sourcePackageVersion": "0.1.0",
   "summary": {
-    "matches": 1,
-    "shimPendingPackage": 2,
+    "matches": 2,
+    "shimPendingPackage": 1,
     "versionMismatches": 0,
     "missingPackageDependencies": 0,
     "missingPackageFilesOrRepos": 0
@@ -12,12 +12,12 @@
   "results": [
     {
       "repo": "ai-ops-console",
-      "status": "shim_pending_package",
-      "actualVersion": null,
+      "status": "match",
+      "actualVersion": "file:vendor/hermes/hermes-readiness-0.1.0.tgz",
       "expectedVersion": "0.1.0",
-      "dependencyGroup": null,
+      "dependencyGroup": "devDependencies",
       "packageStyleCommand": true,
-      "reason": "Repo uses package-style command or shim, but @hermes/readiness is not installed yet."
+      "reason": "Installed @hermes/readiness version matches source package version."
     },
     {
       "repo": "ops-clarity-sprint",

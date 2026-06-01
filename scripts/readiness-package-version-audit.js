@@ -3,23 +3,23 @@
 const fs = require("fs");
 const path = require("path");
 
-const repoRoot = path.resolve(__dirname, "..");
-const defaultRepoRoot = path.resolve(repoRoot, "..");
-
-const sourcePackagePath = path.join(repoRoot, "packages", "readiness", "package.json");
+const root = process.cwd();
+const sourcePackagePath = path.join(root, "packages", "readiness", "package.json");
+const outJson = path.join(root, "reports", "readiness", "latest-package-version-audit.json");
+const outMd = path.join(root, "reports", "readiness", "latest-package-version-audit.md");
 
 const downstreamRepos = [
   {
     name: "ai-ops-console",
-    path: path.join(defaultRepoRoot, "ai-ops-console")
+    path: path.resolve(root, "..", "ai-ops-console")
   },
   {
     name: "ops-clarity-sprint",
-    path: path.join(defaultRepoRoot, "ops-clarity-sprint")
+    path: path.resolve(root, "..", "ops-clarity-sprint")
   },
   {
     name: "repo-template",
-    path: path.join(defaultRepoRoot, "repo-template")
+    path: path.resolve(root, "..", "repo-template")
   }
 ];
 
@@ -27,23 +27,19 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
-function exists(filePath) {
-  return fs.existsSync(filePath);
+function hasPackageStyleCommand(packageJson) {
+  const command = packageJson.scripts && packageJson.scripts["hermes:readiness"];
+  return command === "hermes-readiness" ||
+    command === "node scripts/hermes-readiness-package-shim.cjs";
 }
 
-function findReadinessVersion(packageJson) {
-  const groups = [
-    "dependencies",
-    "devDependencies",
-    "peerDependencies",
-    "optionalDependencies"
-  ];
-
-  for (const group of groups) {
-    if (packageJson[group] && packageJson[group]["@hermes/readiness"]) {
+function findDependency(packageJson) {
+  for (const group of ["dependencies", "devDependencies", "optionalDependencies"]) {
+    const deps = packageJson[group] || {};
+    if (deps["@hermes/readiness"]) {
       return {
         group,
-        version: packageJson[group]["@hermes/readiness"]
+        version: deps["@hermes/readiness"]
       };
     }
   }
@@ -51,98 +47,78 @@ function findReadinessVersion(packageJson) {
   return null;
 }
 
-function hasPackageStyleCommand(packageJson) {
-  return packageJson.scripts && packageJson.scripts["hermes:readiness"]
-    ? packageJson.scripts["hermes:readiness"].includes("hermes-readiness") ||
-        packageJson.scripts["hermes:readiness"].includes("hermes-readiness-package-shim")
-    : false;
+function dependencyMatches(actual, expected) {
+  if (actual === expected) return true;
+  if (actual === `^${expected}`) return true;
+  if (actual === `~${expected}`) return true;
+  if (actual.includes(`hermes-readiness-${expected}.tgz`)) return true;
+  if (actual.includes(`@hermes/readiness-${expected}.tgz`)) return true;
+  return false;
 }
 
-function auditRepo(repo, sourceVersion) {
-  const packagePath = path.join(repo.path, "package.json");
+function auditRepo(repo, expectedVersion) {
+  const packageJsonPath = path.join(repo.path, "package.json");
 
-  if (!exists(repo.path)) {
+  if (!fs.existsSync(repo.path) || !fs.existsSync(packageJsonPath)) {
     return {
       repo: repo.name,
       status: "missing_repo",
-      packageJson: path.relative(repoRoot, packagePath),
-      expectedVersion: sourceVersion,
       actualVersion: null,
+      expectedVersion,
       dependencyGroup: null,
       packageStyleCommand: false,
-      message: "Downstream repo is missing."
+      reason: "Repo or package.json is missing."
     };
   }
 
-  if (!exists(packagePath)) {
-    return {
-      repo: repo.name,
-      status: "missing_package_json",
-      packageJson: path.relative(repoRoot, packagePath),
-      expectedVersion: sourceVersion,
-      actualVersion: null,
-      dependencyGroup: null,
-      packageStyleCommand: false,
-      message: "Downstream package.json is missing."
-    };
-  }
-
-  const packageJson = readJson(packagePath);
-  const versionInfo = findReadinessVersion(packageJson);
+  const packageJson = readJson(packageJsonPath);
   const packageStyleCommand = hasPackageStyleCommand(packageJson);
+  const dependency = findDependency(packageJson);
 
-  if (!versionInfo) {
+  if (!dependency) {
     return {
       repo: repo.name,
       status: packageStyleCommand ? "shim_pending_package" : "missing_package_dependency",
-      packageJson: path.relative(repoRoot, packagePath),
-      expectedVersion: sourceVersion,
       actualVersion: null,
+      expectedVersion,
       dependencyGroup: null,
       packageStyleCommand,
-      message: packageStyleCommand
+      reason: packageStyleCommand
         ? "Repo uses package-style command or shim, but @hermes/readiness is not installed yet."
         : "Repo does not declare @hermes/readiness."
     };
   }
 
-  if (versionInfo.version !== sourceVersion) {
-    return {
-      repo: repo.name,
-      status: "version_mismatch",
-      packageJson: path.relative(repoRoot, packagePath),
-      expectedVersion: sourceVersion,
-      actualVersion: versionInfo.version,
-      dependencyGroup: versionInfo.group,
-      packageStyleCommand,
-      message: "Installed @hermes/readiness version does not match source package version."
-    };
-  }
+  const matches = dependencyMatches(dependency.version, expectedVersion);
 
   return {
     repo: repo.name,
-    status: "match",
-    packageJson: path.relative(repoRoot, packagePath),
-    expectedVersion: sourceVersion,
-    actualVersion: versionInfo.version,
-    dependencyGroup: versionInfo.group,
+    status: matches ? "match" : "version_mismatch",
+    actualVersion: dependency.version,
+    expectedVersion,
+    dependencyGroup: dependency.group,
     packageStyleCommand,
-    message: "Installed @hermes/readiness version matches source package version."
+    reason: matches
+      ? "Installed @hermes/readiness version matches source package version."
+      : "Installed @hermes/readiness version does not match source package version."
   };
+}
+
+function count(results, status) {
+  return results.filter((result) => result.status === status).length;
 }
 
 function renderMarkdown(report) {
   const rows = report.results
-    .map(
-      (item) =>
-        `| ${item.repo} | ${item.status} | ${item.actualVersion || "n/a"} | ${item.expectedVersion} | ${item.dependencyGroup || "n/a"} | ${item.packageStyleCommand ? "yes" : "no"} |`
-    )
+    .map((result) => {
+      return `| ${result.repo} | ${result.status} | ${result.actualVersion || "n/a"} | ${result.expectedVersion} | ${result.dependencyGroup || "n/a"} | ${result.packageStyleCommand ? "yes" : "no"} |`;
+    })
     .join("\n");
 
-  const nonMatches = report.results
-    .filter((item) => item.status !== "match")
-    .map((item) => `- ${item.repo}: ${item.status} — ${item.message}`)
-    .join("\n") || "- None.";
+  const nonMatching = report.results
+    .filter((result) => result.status !== "match")
+    .map((result) => `- ${result.repo}: ${result.status} — ${result.reason}`)
+    .join("\n") || "- No non-matching items.";
 
   return `# Hermes Readiness Package Version Audit
 
@@ -152,12 +128,12 @@ Status: **${report.status.toUpperCase()}**
 
 ## Summary
 
-- Source package version: \`${report.sourceVersion}\`
-- Matches: ${report.summary.match}
-- Shim pending package: ${report.summary.shim_pending_package}
-- Version mismatches: ${report.summary.version_mismatch}
-- Missing package dependencies: ${report.summary.missing_package_dependency}
-- Missing package files/repos: ${report.summary.missing}
+- Source package version: \`${report.sourcePackageVersion}\`
+- Matches: ${report.summary.matches}
+- Shim pending package: ${report.summary.shimPendingPackage}
+- Version mismatches: ${report.summary.versionMismatches}
+- Missing package dependencies: ${report.summary.missingPackageDependencies}
+- Missing package files/repos: ${report.summary.missingPackageFilesOrRepos}
 
 ## Results
 
@@ -167,61 +143,50 @@ ${rows}
 
 ## Non-Matching Items
 
-${nonMatches}
+${nonMatching}
 
 ## Notes
 
-This audit is scaffolding for the post-copy state. During the bridge period, downstream repos may show \`shim_pending_package\` while they use package-style shims before \`@hermes/readiness\` is installable.
+This audit is scaffolding for the post-copy state. During the bridge period, downstream repos may show \`shim_pending_package\` while they use package-style shims before \`@hermes/readiness\` is installable. Repos installed from a local tarball should report \`match\` when the tarball version matches the source package version.
 
 Once \`@hermes/readiness\` is distributed, this audit should replace copied-file drift checks as the primary downstream readiness consistency check.
 `;
 }
 
-if (!exists(sourcePackagePath)) {
-  console.error(`Missing source package: ${sourcePackagePath}`);
-  process.exit(1);
-}
-
 const sourcePackage = readJson(sourcePackagePath);
-const sourceVersion = sourcePackage.version;
-
-const results = downstreamRepos.map((repo) => auditRepo(repo, sourceVersion));
+const expectedVersion = sourcePackage.version;
+const results = downstreamRepos.map((repo) => auditRepo(repo, expectedVersion));
 
 const summary = {
-  match: results.filter((item) => item.status === "match").length,
-  shim_pending_package: results.filter((item) => item.status === "shim_pending_package").length,
-  version_mismatch: results.filter((item) => item.status === "version_mismatch").length,
-  missing_package_dependency: results.filter((item) => item.status === "missing_package_dependency").length,
-  missing: results.filter((item) => item.status === "missing_repo" || item.status === "missing_package_json").length
+  matches: count(results, "match"),
+  shimPendingPackage: count(results, "shim_pending_package"),
+  versionMismatches: count(results, "version_mismatch"),
+  missingPackageDependencies: count(results, "missing_package_dependency"),
+  missingPackageFilesOrRepos: count(results, "missing_repo")
 };
 
-const hardFailures =
-  summary.version_mismatch +
-  summary.missing_package_dependency +
-  summary.missing;
+const status = summary.versionMismatches === 0 &&
+  summary.missingPackageDependencies === 0 &&
+  summary.missingPackageFilesOrRepos === 0
+    ? "pass"
+    : "warn";
 
 const report = {
-  schemaVersion: "0.1.0",
   generatedAt: new Date().toISOString(),
-  status: hardFailures === 0 ? "pass" : "warn",
-  sourcePackage: "packages/readiness/package.json",
-  sourceVersion,
+  status,
+  sourcePackageVersion: expectedVersion,
   summary,
   results
 };
 
-const outDir = path.join(repoRoot, "reports", "readiness");
-const outJson = path.join(outDir, "latest-package-version-audit.json");
-const outMd = path.join(outDir, "latest-package-version-audit.md");
-
-fs.mkdirSync(outDir, { recursive: true });
+fs.mkdirSync(path.dirname(outJson), { recursive: true });
 fs.writeFileSync(outJson, `${JSON.stringify(report, null, 2)}\n`);
 fs.writeFileSync(outMd, renderMarkdown(report));
 
-console.log(`Hermes readiness package version audit status: ${report.status.toUpperCase()}`);
-console.log(`JSON report: ${path.relative(repoRoot, outJson)}`);
-console.log(`Markdown report: ${path.relative(repoRoot, outMd)}`);
+console.log(`Hermes readiness package version audit status: ${status.toUpperCase()}`);
+console.log(`JSON report: ${path.relative(root, outJson)}`);
+console.log(`Markdown report: ${path.relative(root, outMd)}`);
 
-if (report.status !== "pass") {
+if (status !== "pass") {
   process.exitCode = 1;
 }

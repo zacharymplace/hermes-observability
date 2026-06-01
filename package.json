@@ -5,7 +5,7 @@
   "type": "commonjs",
   "scripts": {
     "trace:smoke": "node scripts/trace-smoke.js",
-    "check": "npm run standards:check && npm run standards:shape && npm run standard:report && npm run standard:report:json && npm run standard:export && npm run standard:verify-export && npm run trace:smoke",
+    "check": "npm run standards:check && npm run standards:shape && npm run standard:report && npm run standard:report:json && npm run standard:export && npm run standard:verify-export && npm run hermes:readiness",
     "standards:check": "node scripts/check-standards.js",
     "ci:summary": "bash scripts/github-ci-summary.sh",
     "hermes:observe": "npm run check && npm run trace:smoke && npm run ci:summary",
@@ -19,7 +19,8 @@
     "ecosystem:gate": "npm run standard:export && npm run ecosystem:audit",
     "ecosystem:report": "npm run standard:export && node scripts/ecosystem-report.js",
     "ecosystem:dashboard": "npm run ecosystem:report",
-    "ecosystem:full": "npm run ecosystem:gate && npm run ecosystem:dashboard"
+    "ecosystem:full": "npm run ecosystem:gate && npm run ecosystem:dashboard",
+    "hermes:readiness": "node scripts/hermes-readiness.js"
   },
   "dependencies": {
     "langfuse": "latest"

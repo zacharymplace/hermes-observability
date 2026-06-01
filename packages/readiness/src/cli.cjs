@@ -7,7 +7,7 @@ const {
   readJson,
   buildMarkdown,
   validateReadiness
-} = require("../../../lib/readiness");
+} = require("./index.cjs");
 
 const packageRoot = path.resolve(__dirname, "..");
 const root = process.cwd();

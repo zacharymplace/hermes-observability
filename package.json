@@ -22,7 +22,8 @@
     "ecosystem:full": "npm run ecosystem:gate && npm run ecosystem:dashboard",
     "hermes:readiness": "node scripts/hermes-readiness.js",
     "test:readiness": "node tests/readiness/validator.test.cjs",
-    "test:readiness:module": "node tests/readiness/module.test.cjs"
+    "test:readiness:module": "node tests/readiness/module.test.cjs",
+    "readiness:drift": "node scripts/readiness-drift-audit.js"
   },
   "dependencies": {
     "langfuse": "latest"

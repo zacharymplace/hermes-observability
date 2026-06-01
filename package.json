@@ -27,7 +27,8 @@
     "readiness:package:smoke": "node packages/readiness/bin/hermes-readiness.cjs",
     "readiness:package:check": "npm run readiness:package:smoke",
     "test:readiness:package": "node tests/readiness/package-cli.test.cjs",
-    "test:readiness:package:paths": "node tests/readiness/package-local-paths.test.cjs"
+    "test:readiness:package:paths": "node tests/readiness/package-local-paths.test.cjs",
+    "readiness:package-version:audit": "node scripts/readiness-package-version-audit.js"
   },
   "dependencies": {
     "langfuse": "latest"

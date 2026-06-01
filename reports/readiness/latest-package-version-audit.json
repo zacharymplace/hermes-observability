@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "0.1.0",
+  "generatedAt": "2026-06-01T03:57:33.572Z",
+  "status": "pass",
+  "sourcePackage": "packages/readiness/package.json",
+  "sourceVersion": "0.1.0",
+  "summary": {
+    "match": 0,
+    "shim_pending_package": 3,
+    "version_mismatch": 0,
+    "missing_package_dependency": 0,
+    "missing": 0
+  },
+  "results": [
+    {
+      "repo": "ai-ops-console",
+      "status": "shim_pending_package",
+      "packageJson": "../ai-ops-console/package.json",
+      "expectedVersion": "0.1.0",
+      "actualVersion": null,
+      "dependencyGroup": null,
+      "packageStyleCommand": true,
+      "message": "Repo uses package-style command or shim, but @hermes/readiness is not installed yet."
+    },
+    {
+      "repo": "ops-clarity-sprint",
+      "status": "shim_pending_package",
+      "packageJson": "../ops-clarity-sprint/package.json",
+      "expectedVersion": "0.1.0",
+      "actualVersion": null,
+      "dependencyGroup": null,
+      "packageStyleCommand": true,
+      "message": "Repo uses package-style command or shim, but @hermes/readiness is not installed yet."
+    },
+    {
+      "repo": "repo-template",
+      "status": "shim_pending_package",
+      "packageJson": "../repo-template/package.json",
+      "expectedVersion": "0.1.0",
+      "actualVersion": null,
+      "dependencyGroup": null,
+      "packageStyleCommand": true,
+      "message": "Repo uses package-style command or shim, but @hermes/readiness is not installed yet."
+    }
+  ]
+}

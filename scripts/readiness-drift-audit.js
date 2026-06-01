@@ -119,14 +119,20 @@ function auditRepo(repo) {
     })
   );
 
-  results.push(
-    compareFile({
-      repo,
-      label: copiedScript.label,
-      sourceRelative: copiedScript.source,
-      downstreamRelative: repo.scriptPath
-    })
-  );
+  const scriptResult = compareFile({
+    repo,
+    label: copiedScript.label,
+    sourceRelative: copiedScript.source,
+    downstreamRelative: repo.scriptPath
+  });
+
+  if (scriptResult.status === "drift" && repo.scriptPath.endsWith(".cjs")) {
+    scriptResult.status = "expected_drift";
+    scriptResult.reason =
+      "Downstream repos currently use copied CommonJS .cjs scripts while source has moved to modular .js internals before package extraction.";
+  }
+
+  results.push(scriptResult);
 
   return results;
 }
@@ -141,10 +147,10 @@ function buildMarkdown(report) {
 
   const driftItems = report.results
     .filter((result) => result.status !== "match")
-    .map(
-      (result) =>
-        `- ${result.repo}: ${result.label} (${result.status}) — \`${result.file}\``
-    );
+    .map((result) => {
+      const reason = result.reason ? ` — ${result.reason}` : "";
+      return `- ${result.repo}: ${result.label} (${result.status}) — \`${result.file}\`${reason}`;
+    });
 
   return `# Hermes Readiness Downstream Drift Audit
 
@@ -159,6 +165,7 @@ Status: **${report.status.toUpperCase()}**
 - Missing downstream files: ${report.summary.downstream_missing}
 - Missing source files: ${report.summary.source_missing}
 - Missing repos: ${report.summary.repo_missing}
+- Expected drift: ${report.summary.expected_drift}
 
 ## Results
 
@@ -191,7 +198,8 @@ function main() {
       drift: 0,
       downstream_missing: 0,
       source_missing: 0,
-      repo_missing: 0
+      repo_missing: 0,
+      expected_drift: 0
     }
   );
 

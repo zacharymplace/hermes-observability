@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.1.0",
-  "generatedAt": "2026-06-01T03:33:38.347Z",
+  "generatedAt": "2026-06-01T03:42:49.517Z",
   "status": "pass",
   "sourceRepo": "hermes-observability",
   "downstreamRepos": [
@@ -23,8 +23,8 @@
     "downstream_missing": 0,
     "source_missing": 0,
     "repo_missing": 0,
-    "expected_drift": 1,
-    "package_style": 2
+    "expected_drift": 0,
+    "package_style": 3
   },
   "results": [
     {
@@ -96,14 +96,10 @@
     },
     {
       "repo": "ops-clarity-sprint",
-      "file": "scripts/hermes-readiness.cjs",
-      "label": "readiness script",
-      "status": "expected_drift",
-      "source": "scripts/hermes-readiness.js",
-      "downstream": "scripts/hermes-readiness.cjs",
-      "sourceHash": "963c9fdbb19c2f5fdec8411e65bfd3b19aaa4bae064e772373bf1c78f4ae813a",
-      "downstreamHash": "953505958bd3ef968b443523a28da938c4f46af06d236c7a378c116dabd58361",
-      "reason": "Downstream repos currently use copied CommonJS .cjs scripts while source has moved to modular .js internals before package extraction."
+      "file": "package.json",
+      "label": "readiness command",
+      "status": "package_style",
+      "reason": "Repo uses the future package-style hermes-readiness command instead of a copied readiness script."
     },
     {
       "repo": "repo-template",

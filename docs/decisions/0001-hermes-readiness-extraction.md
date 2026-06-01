@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Accepted — extraction criteria met; migration planning active
 
 ## Date
 
@@ -126,7 +126,7 @@ Create `@hermes/readiness` or equivalent shared package when the following packa
 
 The third pilot changes the decision from "wait for more evidence" to "prepare extraction carefully."
 
-The evidence now supports extraction planning, but not a rushed package extraction. The next step should be a package-boundary design note, not immediate implementation.
+The evidence now supports moving from extraction planning to real package migration. The package boundary has been designed, the package scaffold exists, package-local CLI smoke tests pass, and all three downstream repositories have moved to package-style readiness wiring.
 
 ### Updated Recommendation
 
@@ -137,3 +137,33 @@ Create a follow-up decision/design document for one of:
 3. `repo-template v2` generated baseline
 
 Recommended next step: draft the package boundary and source-of-truth update flow before replacing copied assets.
+
+## Extraction Criteria Update
+
+As of the package-style migration pass, the practical extraction criteria are now met.
+
+Current evidence:
+
+- `ai-ops-console` uses package-style readiness wiring
+- `ops-clarity-sprint` uses package-style readiness wiring
+- `repo-template` uses package-style readiness wiring
+- downstream copied-script drift is now zero
+- `hermes-observability` drift audit passes with three package-style repos
+- `@hermes/readiness` package scaffold exists
+- package-local CLI smoke test passes
+- package CLI test passes
+- full `npm run check` passes
+
+## Updated Migration Decision
+
+The next step is no longer another copied-asset pilot.
+
+The next step is real `@hermes/readiness` package migration:
+
+1. make the package own its runtime paths cleanly
+2. make package-local tests independent from root script assumptions
+3. decide package distribution strategy
+4. replace downstream package-style shims with package usage
+5. replace drift auditing with package version auditing
+
+Temporary package-style shims remain acceptable only as a bridge until package installation is available.

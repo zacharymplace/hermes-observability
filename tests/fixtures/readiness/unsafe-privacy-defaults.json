@@ -1,0 +1,22 @@
+{
+  "trace_id": "trace_demo_001",
+  "run_id": "run_demo_001",
+  "schema_version": "0.1.0",
+  "tool_version": "hermes-observability@0.1.0",
+  "event_name": "agent.tool.call",
+  "timestamp": "2026-05-31T00:00:00.000Z",
+  "environment": "local",
+  "privacy_level": "raw",
+  "privacy": {
+    "allowRawPromptLogging": true,
+    "allowRawCompletionLogging": true,
+    "redactionEnabled": false,
+    "sensitiveFields": []
+  },
+  "artifact": {
+    "schema_version": "0.1.0",
+    "tool_version": "hermes-observability@0.1.0",
+    "run_id": "run_demo_001",
+    "generated_at": "2026-05-31T00:00:00.000Z"
+  }
+}

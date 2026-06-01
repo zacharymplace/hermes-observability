@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-require("../../../scripts/hermes-readiness.js");
+const { run } = require("../src/cli.cjs");
+
+run();

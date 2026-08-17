@@ -1,10 +1,8 @@
 # Observability
 
-This repo defines the shared Hermes observability standard and emits local validation traces to self-hosted Langfuse.
-
-## Langfuse Local
-
-http://localhost:3000
+This repo defines the shared Hermes observability standard and emits local
+validation traces to Langfuse Cloud (`LANGFUSE_HOST` in
+`~/.config/hermes/langfuse.env`).
 
 ## Env
 

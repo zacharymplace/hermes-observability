@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.1.0",
-  "generatedAt": "2026-06-01T03:42:49.517Z",
+  "generatedAt": "2026-08-24T15:30:59.050Z",
   "status": "pass",
   "sourceRepo": "hermes-observability",
   "downstreamRepos": [
@@ -9,8 +9,8 @@
       "path": "/Users/zplace/dev/ai-ops-console"
     },
     {
-      "name": "ops-clarity-sprint",
-      "path": "/Users/zplace/dev/ops-clarity-sprint"
+      "name": "sentra",
+      "path": "/Users/zplace/dev/sentra"
     },
     {
       "name": "repo-template",
@@ -54,8 +54,8 @@
       "status": "match",
       "source": "docs/runbooks/hermes-readiness.md",
       "downstream": "docs/runbooks/hermes-readiness.md",
-      "sourceHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd",
-      "downstreamHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd"
+      "sourceHash": "ca2b19dc66bb21e16cbdce4378b233cbe9b599a279f8ca41c8a0de3e9c80ef4e",
+      "downstreamHash": "ca2b19dc66bb21e16cbdce4378b233cbe9b599a279f8ca41c8a0de3e9c80ef4e"
     },
     {
       "repo": "ai-ops-console",
@@ -65,7 +65,7 @@
       "reason": "Repo uses the future package-style hermes-readiness command instead of a copied readiness script."
     },
     {
-      "repo": "ops-clarity-sprint",
+      "repo": "sentra",
       "file": "standards/readiness.json",
       "label": "readiness standard",
       "status": "match",
@@ -75,7 +75,7 @@
       "downstreamHash": "0ae3a8dc9272cb22c7dd0f08c0e0175f67b03486b2ea0950e775f5dc82646db8"
     },
     {
-      "repo": "ops-clarity-sprint",
+      "repo": "sentra",
       "file": "fixtures/readiness/valid-agent-trace.json",
       "label": "valid readiness fixture",
       "status": "match",
@@ -85,17 +85,17 @@
       "downstreamHash": "522d7676fbedff50b4948a94eac7dae707f1765cd9149eebf4e6324b1d8330b7"
     },
     {
-      "repo": "ops-clarity-sprint",
+      "repo": "sentra",
       "file": "docs/runbooks/hermes-readiness.md",
       "label": "readiness runbook",
       "status": "match",
       "source": "docs/runbooks/hermes-readiness.md",
       "downstream": "docs/runbooks/hermes-readiness.md",
-      "sourceHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd",
-      "downstreamHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd"
+      "sourceHash": "ca2b19dc66bb21e16cbdce4378b233cbe9b599a279f8ca41c8a0de3e9c80ef4e",
+      "downstreamHash": "ca2b19dc66bb21e16cbdce4378b233cbe9b599a279f8ca41c8a0de3e9c80ef4e"
     },
     {
-      "repo": "ops-clarity-sprint",
+      "repo": "sentra",
       "file": "package.json",
       "label": "readiness command",
       "status": "package_style",
@@ -128,8 +128,8 @@
       "status": "match",
       "source": "docs/runbooks/hermes-readiness.md",
       "downstream": "docs/runbooks/hermes-readiness.md",
-      "sourceHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd",
-      "downstreamHash": "1e66c87d439ad64b633f6d112a55e4ba96826461176236187955de5ee8e82ebd"
+      "sourceHash": "ca2b19dc66bb21e16cbdce4378b233cbe9b599a279f8ca41c8a0de3e9c80ef4e",
+      "downstreamHash": "ca2b19dc66bb21e16cbdce4378b233cbe9b599a279f8ca41c8a0de3e9c80ef4e"
     },
     {
       "repo": "repo-template",

@@ -23,39 +23,32 @@ npm install --save-dev ../hermes-observability/hermes-readiness-*.tgz
 npm run hermes:readiness
 npm run check
 
-## Step 3: Update Version Audit
+## Step 3: Audit Current Consumers
 
-cd ~/dev/hermes-observability
+From `hermes-observability`:
 
+```text
+npm run readiness:drift
 npm run readiness:package-version:audit
+```
 
-Expected bridge state:
+Expected current state:
 
 - repo-template: match
-- ops-clarity-sprint: shim_pending_package
-- ai-ops-console: shim_pending_package
+- sentra: match
+- ai-ops-console: match
 
-## Step 4: Migrate Remaining Repos
+## Step 4: Validate Consumers
 
-Migrate in this order:
+For each consumer, run:
 
-1. ops-clarity-sprint
-2. ai-ops-console
-
-For each repo:
-
-npm install --save-dev PACKAGE_SOURCE
+```
 npm run hermes:readiness
 npm run check
-
-Then remove temporary shim:
-
-git rm scripts/hermes-readiness-package-shim.cjs
-
+```
 ## Done Criteria
 
 - repo-template uses installed @hermes/readiness
-- ops-clarity-sprint uses installed @hermes/readiness
+- sentra uses installed @hermes/readiness
 - ai-ops-console uses installed @hermes/readiness
 - package version audit reports three matches
-- temporary shims are removed

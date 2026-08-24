@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-01T05:11:38.280Z",
+  "generatedAt": "2026-08-24T15:30:59.155Z",
   "status": "pass",
   "sourcePackageVersion": "0.1.0",
   "summary": {
-    "matches": 2,
-    "shimPendingPackage": 1,
+    "matches": 3,
+    "shimPendingPackage": 0,
     "versionMismatches": 0,
     "missingPackageDependencies": 0,
     "missingPackageFilesOrRepos": 0
@@ -20,13 +20,13 @@
       "reason": "Installed @hermes/readiness version matches source package version."
     },
     {
-      "repo": "ops-clarity-sprint",
-      "status": "shim_pending_package",
-      "actualVersion": null,
+      "repo": "sentra",
+      "status": "match",
+      "actualVersion": "file:vendor/hermes/hermes-readiness-0.1.0.tgz",
       "expectedVersion": "0.1.0",
-      "dependencyGroup": null,
+      "dependencyGroup": "devDependencies",
       "packageStyleCommand": true,
-      "reason": "Repo uses package-style command or shim, but @hermes/readiness is not installed yet."
+      "reason": "Installed @hermes/readiness version matches source package version."
     },
     {
       "repo": "repo-template",

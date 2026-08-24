@@ -33,7 +33,7 @@ The first version validates a fixture trace against:
 Use this readiness check as the starting point for pilots in:
 
 - ai-ops-console
-- ops-clarity-sprint
+- sentra
 
 ## Extraction Rule
 

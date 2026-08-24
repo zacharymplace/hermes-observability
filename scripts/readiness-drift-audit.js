@@ -15,8 +15,8 @@ const downstreamRepos = [
     packageStyle: true
   },
   {
-    name: "ops-clarity-sprint",
-    path: path.join(defaultRepoRoot, "ops-clarity-sprint"),
+    name: "sentra",
+    path: path.join(defaultRepoRoot, "sentra"),
     scriptPath: "scripts/hermes-readiness-package-shim.cjs",
     packageStyle: true
   },
@@ -194,7 +194,7 @@ ${driftItems.length ? driftItems.join("\n") : "- None."}
 
 ## Notes
 
-Script extension differences are expected downstream. If copied script hashes differ only because source uses \`.js\` and downstream uses \`.cjs\`, document that difference before extraction.
+Copied-script differences are supported only for explicitly documented legacy consumers. Current package consumers must use the package command and keep the shared contract assets synchronized.
 
 Long-term, this audit should be replaced by package version checks after \`@hermes/readiness\` or equivalent is extracted.
 `;

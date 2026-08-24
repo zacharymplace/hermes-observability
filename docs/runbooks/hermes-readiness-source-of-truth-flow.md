@@ -2,9 +2,7 @@
 
 ## Purpose
 
-Define how Hermes readiness changes move from `hermes-observability` into downstream repositories while readiness assets remain copied rather than packaged.
-
-This runbook applies until the readiness logic is extracted into `@hermes/readiness`, an `@hermes/observability` submodule, or the `repo-template v2` baseline.
+Define how Hermes readiness changes move from `hermes-observability` into downstream repositories. The readiness CLI is distributed through `@hermes/readiness`; the standard, fixture, and runbook remain synchronized contract assets.
 
 ## Source of Truth
 
@@ -21,10 +19,10 @@ This runbook applies until the readiness logic is extracted into `@hermes/readin
 
 ## Current Downstream Repositories
 
-Readiness is currently copied into:
+Readiness is currently consumed by:
 
 - `ai-ops-console`
-- `ops-clarity-sprint`
+- `sentra`
 - `repo-template`
 
 ## Update Rule
@@ -63,143 +61,49 @@ Make these in the downstream repo only:
 
 ## Propagation Sequence
 
-When a source-of-truth readiness change is merged:
+When readiness changes are merged:
 
-1. Sync `hermes-observability/main`.
-2. Run `npm run check`.
-3. Copy changed readiness assets to each downstream repo.
-4. Run each downstream repo's `npm run hermes:readiness`.
-5. Run each downstream repo's `npm run check`.
-6. Open one PR per downstream repo.
-7. Record downstream differences in this repo before considering extraction.
+1. Sync hermes-observability/main.
+2. Run npm run check.
+3. Pack and distribute the updated @hermes/readiness version.
+4. Copy changed contract assets to each consumer.
+5. Run each consumer's npm run hermes:readiness.
+6. Run each consumer's npm run check.
+7. Run the drift and package-version audits.
 
-## Copy Map
+## Shared Contract Assets
 
-### `ai-ops-console`
+Keep these synchronized in all three consumers:
 
-Copy:
+- standards/readiness.json
+- fixtures/readiness/valid-agent-trace.json
+- docs/runbooks/hermes-readiness.md
 
-```text
-standards/readiness.json
-fixtures/readiness/valid-agent-trace.json
-docs/runbooks/hermes-readiness.md
-```
+Do not overwrite repository-specific lint, CI, or privacy configuration without review.
 
-If still using copied script logic, copy/adapt:
+## Package Sources
 
-```txt
-scripts/hermes-readiness.cjs
-```
+| Repo | Package source | Integration |
+| --- | --- | --- |
+| ai-ops-console | Vendored hermes-readiness-0.1.0.tgz | Direct hermes-readiness command. |
+| sentra | Vendored hermes-readiness-0.1.0.tgz | Direct hermes-readiness command. |
+| repo-template | Sibling hermes-observability package archive | Direct hermes-readiness baseline command. |
 
-Do not overwrite repo-specific lint config without review.
+## Allowed Downstream Differences
 
-### `ops-clarity-sprint`
-
-Copy:
-
-```txt
-standards/readiness.json
-fixtures/readiness/valid-agent-trace.json
-docs/runbooks/hermes-readiness.md
-scripts/hermes-readiness.cjs
-```
-
-Preserve existing `check script` behavior.
-
-### `repo-template`
-
-Copy:
-
-```txt
-standards/readiness.json
-fixtures/readiness/valid-agent-trace.json
-docs/runbooks/hermes-readiness.md
-scripts/hermes-readiness.cjs
-```
-
-Preserve default baseline behavior.
-
-## Verification Commands
-
-### Source
-
-```bash
-cd ~/dev/hermes-observability
-npm run hermes:readiness
-npm run test:readiness
-npm run test:readiness:module
-npm run check
-```
-
-### Downstream
-
-```bash
-npm run hermes:readiness
-npm run check
-```
-
-## Drift Detection
-
-A downstream repo may be drifting if:
-
-- readiness script differs from source without a documented reason
-- readiness schema differs from source
-- fixture differs from source
-- report paths differs unexpectedly
-- `npm run check` no longer includes readiness
-- generated reports are stale or missing
-- lint/CI ignores are hiding unrelated files
-
-## Allowed Differences
-
-Allowed downstream differences:
-
-- `.js` vs `.cjs` script extension
+- package source location
 - lint ignore rules
-- package script composition
 - CI workflow names
 - report commit policy
-- repo-specific fixture additions
-- repo-specific README/runbook links
+- repository-specific fixtures
+- repository-specific documentation links
 
-## Difference Log
+## Package Update Seal
 
-Track meaningful differences here until packaging removes copies scripts.
+A readiness package update is complete when:
 
-| Repo | Difference | Reason | Keep / Remove Later |
-| --- | --- | --- | --- |
-| `ai-ops-console` | Uses `scripts/hermes-readiness.cjs` and lint ignore. | Next/ESLint rules reject CommonJS `require()` in linted scripts. | Remove later when using package CLI. |
-| `ops-clarity-sprint` | Uses `scripts/hermes-readiness.cjs`. | CommonJS compatibility for copied script. | Remove later when using package CLI. |
-| `repo-template` | Adds baseline `package.json`. | Template needed `npm` script surface. | Keep as repo baseline. |
-
-## Extraction Trigger
-
-Replace copied assets with package usage when:
-
-- module format is decided
-- package CLI is stable
-- report contract is stable
-- downstream lint/CI integration is documented
-- package versioning is documented
-- migration from copied script to package usage is tested in `repo-template`
-
-## Future Package Flow
-
-After extraction, the flow should become:
-
-```txt
-@hermes/readiness release
-  -> update repo-template baseline
-  -> migrate downstream repos to package version
-  -> remove copied validator scripts
-  -> keep only repo-specific config/fixtures when needed
-```
-
-## Current Recommendation
-
-Keep copying assets only for short-term stabilization.
-
-Do not allow more than one additional source-of-truth behavior change before creating either:
-
-- a package extraction PR, or
-- a generator/update script for downstream repositories.
+- all three consumers use the intended package version;
+- shared contract assets match;
+- each consumer's readiness and repository checks pass;
+- npm run readiness:drift passes;
+- npm run readiness:package-version:audit passes.

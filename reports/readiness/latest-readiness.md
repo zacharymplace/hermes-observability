@@ -2,13 +2,13 @@
 
 Status: **PASS**
 
-Generated at: 2026-06-01T01:23:16.578Z
+Generated at: 2026-08-29T17:18:18.960Z
 
 ## Summary
 
 - Failures: 0
 - Warnings: 0
-- Fixture: `fixtures/readiness/valid-agent-trace.json`
+- Fixture: `packages/readiness/fixtures/valid-agent-trace.json`
 - Standard version: `0.1.0`
 
 ## Checks

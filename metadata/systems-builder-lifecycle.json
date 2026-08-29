@@ -3,11 +3,11 @@
   "system_id": "hermes-observability",
   "display_name": "Hermes Observability",
   "phase": "validate",
-  "condition": "waiting",
+  "condition": "passing",
   "source": {
     "repository": "zacharymplace/hermes-observability",
     "path": ".",
-    "commit": "f2b5f6c"
+    "commit": "74808ab"
   },
   "evidence": [
     {
@@ -23,23 +23,20 @@
     {
       "kind": "validation",
       "reference": "reports/readiness/latest-drift-audit.json",
-      "result": "pass-canonical-main"
+      "result": "pass"
     },
     {
-      "kind": "observation",
-      "reference": "../ai-ops-console fix/readable-created-date",
-      "result": "active-branch-drift"
+      "kind": "validation",
+      "reference": "reports/readiness/latest-package-version-audit.json",
+      "result": "pass"
     }
   ],
-  "last_verified_at": "2026-08-24T15:40:00Z",
+  "last_verified_at": "2026-08-29T17:19:22Z",
   "next_action": {
-    "description": "Preserve or resolve the active AI Ops readiness report changes, incorporate origin/main into fix/readable-created-date, and rerun the drift audit.",
-    "command": "git -C ../ai-ops-console status --short"
+    "description": "After any readiness contract or package change, run the local check followed by the downstream drift and package-version audits before claiming ecosystem alignment.",
+    "command": "npm run check && npm run readiness:drift && npm run readiness:package-version:audit"
   },
-  "blockers": [
-    "AI Ops Console origin/main is aligned, but its active fix/readable-created-date checkout still contains the previous readiness runbook.",
-    "The active AI Ops branch also has two unrelated modified readiness reports that must be preserved before branch integration."
-  ],
+  "blockers": [],
   "capabilities": [
     "observability-standards",
     "readiness-validation",
